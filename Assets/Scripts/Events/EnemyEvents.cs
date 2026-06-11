@@ -1,4 +1,5 @@
 using System;
+using Cards;
 
 public static class EnemyEvents
 {

@@ -15,6 +15,7 @@ public class Deck : MonoBehaviour
 
     private void Start()
     {
+        drawPile = DeckManager.Instance.GetDeck();
         DeckDrawVisuals();
     }
 

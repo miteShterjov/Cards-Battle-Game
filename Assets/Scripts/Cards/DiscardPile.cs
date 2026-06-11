@@ -54,7 +54,7 @@ public class DiscardPile : MonoBehaviour
         if (!TurnSystem.Instance.CanReshuffleDiscardPile()) return;
         if (!TurnSystem.Instance.HasActionsRemaining()) return;
         if (discardPile.Count <= 0) return;
-        PlayerEvents.ReshuffleRequested();
-        deck.ReshuffleFromDiscardPile();
+        deck.ReshuffleFromDiscardPile(); // ← move cards first
+        PlayerEvents.ReshuffleRequested(); // ← consume actions after
     }
 }

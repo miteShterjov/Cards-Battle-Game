@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5afcded5c072bd69aa35e120cc28f179, type: 3}
   m_Name: Basic Heal
   m_EditorClassIdentifier: Assembly-CSharp::CardData
+  type: 1
+  damageType: 1
+  defenseType: 2
   cardName: Heal
   description: Heal for 3 points
   actionCost: 1
   illustration: {fileID: 5860025163644826426, guid: c38f5f4203b0818ca92750e8a7bf020f, type: 3}
   attackPower: 0
   healPower: 3
+  defensePower: 0

@@ -207,8 +207,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -225,17 +225,17 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 7
-  m_fontSizeBase: 7
+  m_fontSize: 4
+  m_fontSizeBase: 4
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
-  m_characterSpacing: 0
+  m_characterSpacing: -7
   m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
@@ -339,7 +339,8 @@ MonoBehaviour:
   actionText: {fileID: 8433880218960342236}
   hoverMultiplier: 2
   hoverSortingOrder: 1
-  newPosition: {x: 0, y: 2, z: 0}
+  hoverPositionOffset: {x: 0, y: 2, z: 0}
+  cardBase: {fileID: 4922664036450198716}
 --- !u!61 &1483252819886870613
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -766,15 +767,15 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 3504339129578956549, guid: f5522e09227ec5855b21c70bd1a88173, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.125, y: 1.125}
+  m_Size: {x: 0.24, y: 0.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
 --- !u!1 &4301451125874957608
 GameObject:
@@ -953,8 +954,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 2020574904691587058, guid: dc961cd60a05d14498e0d5133d842808, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 6947568659798584788, guid: dc961cd60a05d14498e0d5133d842808, type: 3}
+  m_Color: {r: 1, g: 0, b: 0.89863837, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -989,7 +990,7 @@ Transform:
   m_GameObject: {fileID: 5304844301850539740}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1966, y: 2.79, z: 0}
+  m_LocalPosition: {x: 0.1966, y: 3.26, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1080,8 +1081,8 @@ Transform:
   m_GameObject: {fileID: 6432560642041375210}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.94, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
+  m_LocalPosition: {x: 0.0013475, y: 1.5217, z: 0}
+  m_LocalScale: {x: 0.6825, y: 0.6825, z: 0.6825}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7998083526406077879}
@@ -1310,7 +1311,7 @@ Transform:
   m_GameObject: {fileID: 7808623509156729426}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.99, y: 2.85, z: 0}
+  m_LocalPosition: {x: -2.32, y: 3.24, z: 0}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 1
   m_Children:

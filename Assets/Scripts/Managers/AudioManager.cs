@@ -1,9 +1,8 @@
-using System;
 using Cards;
+using Events;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Systems
+namespace Managers
 {
     public class AudioManager : Singleton<AudioManager>
     {
@@ -54,7 +53,7 @@ namespace Systems
         private void PayerHit(int _) => PLaySfx(playerHitSfx);
         private void PlayerHeals() => PLaySfx(playerHealsSfx);
         private void PlayerDies() => PLaySfx(playerDeathSfx);
-        private void EnemyHit(CardData _) => PLaySfx(enemyHitSfx);
+        private void EnemyHit(int _) => PLaySfx(enemyHitSfx);
         private void EnemyDeath() => PLaySfx(enemyDeadSfx);
 
         private void PLaySfx(AudioClip audioClip)

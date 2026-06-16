@@ -1,7 +1,7 @@
-using BaseClasses;
-using UnityEngine;
-
-public class EnemyHealthController : HealthController
+namespace Entities.Enemy
 {
+    public class EnemyHealthController : HealthController
+    {
     
+    }
 }

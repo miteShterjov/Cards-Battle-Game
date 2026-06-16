@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5afcded5c072bd69aa35e120cc28f179, type: 3}
+  m_Name: Stun
+  m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
+  type: 3
+  cardName: Stun
+  description: Stuned for 1 turn.
+  actionCost: 2
+  illustration: {fileID: -276772816, guid: c38f5f4203b0818ca92750e8a7bf020f, type: 3}
+  damageType: 0
+  attackPower: 0
+  healPower: 0
+  defenseType: 0
+  defensePower: 0
+  statusEffectType: 3
+  statusEffectDamage: 0
+  statusEffectDuration: 1

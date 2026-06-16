@@ -1,16 +1,15 @@
-using System;
 using System.Collections.Generic;
 using Cards;
 using Events;
-using Systems;
+using Managers;
 using UnityEngine;
 
-namespace DefaultNamespace
+namespace UI
 {
     public class DeckUI : MonoBehaviour
     {
         [SerializeField] private GameObject cardTabPrefab;
-
+        
         private readonly List<GameObject> _cardTabGameObjects = new List<GameObject>();
         private const float VerticalSpacing = 0.6f;
 
@@ -40,6 +39,13 @@ namespace DefaultNamespace
             {
                 GameObject cardTab = Instantiate(cardTabPrefab, transform);
                 cardTab.GetComponent<CardTab>().LoadCardTabData(deck[i]);
+
+                // if (cardTab.GetComponent<CardTab>().GetCardData().type == CardType.Defend)
+                // {
+                //     cardTab.GetComponent<CardData>().illustration.
+                //         GameObject().transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+                // }
+                    
                 cardTab.transform.localPosition = new Vector3(0, -i * VerticalSpacing, 0);
                 _cardTabGameObjects.Add(cardTab);
             }

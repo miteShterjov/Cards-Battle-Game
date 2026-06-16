@@ -1,9 +1,8 @@
-using UnityEngine;
 using System;
 
 namespace Events
 {
-    public class TurnEvents
+    public static class TurnEvents
     {
         public static event Action OnPlayerTurnEnds;
         public static event Action OnEnemyTurnEnds;

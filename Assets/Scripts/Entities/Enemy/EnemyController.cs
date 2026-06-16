@@ -1,110 +1,101 @@
-using System;
-using System.Collections;
 using Cards;
 using Events;
+using StatusEffects;
 using UnityEngine;
 
-public class EnemyController : MonoBehaviour
+namespace Entities.Enemy
 {
-    [Header("Enemy Config")] 
-    [SerializeField] private int attackDamage = 10;
-    [Header("Debugging and Testing")]
-    [SerializeField] private float takeHitAnimDelay = 0.25f;
-    [SerializeField] private float deathAnimDelay = 0.25f;
-    [SerializeField] private Vector3 attackMovement = new Vector3(2f, 0, 0);
-    
-    
-    private Vector3 _originalPosition;
-    private Animator _animator;
-    private EnemyHealthController _enemyHealthController;
-    
-    private static readonly int MoveAnimEvent = Animator.StringToHash("isMoving");
-    private static readonly int HitAnimParam = Animator.StringToHash("TakeHit");
-    private static readonly int DeathAnimParam = Animator.StringToHash("Death");
-    private static readonly int Attack1AnimEvent = Animator.StringToHash("Attack1");
-    private static readonly int Attack2AnimEvent = Animator.StringToHash("Attack2");
-    
-    private void Awake()
+    public class EnemyController : CombatantController
     {
-        _animator = GetComponentInChildren<Animator>();
-        if (!_animator) Debug.LogError("Animator not found in EnemyController.");
-        _enemyHealthController = GetComponent<EnemyHealthController>();
-        if (!_enemyHealthController) Debug.LogError("EnemyHealthController missing in EnemyController.");
-    }
+        [Header("Enemy Config")]
+        [SerializeField] private int attackDamage = 10;
+        [SerializeField] private float takeHitAnimDelay = 0.25f;
+        [SerializeField] private float deathAnimDelay = 0.25f;
+        [SerializeField] private Vector3 attackMovement = new Vector3(-2f, 0, 0);
 
-    private void Start()
-    {
-        _originalPosition = transform.position;
-    }
+        private EnemyHealthController _enemyHealthController;
+        private StatusEffectController _statusEffectController;
 
-    private void OnEnable()
-    {
-        EnemyEvents.OnEnemyHit += HandleEnemyHit;
-        TurnEvents.OnEnemyTurnStart += Attack;
-    }
+        
 
-    private void OnDisable()
-    {
-        EnemyEvents.OnEnemyHit -= HandleEnemyHit;
-        TurnEvents.OnEnemyTurnStart -= Attack;
-    }
-
-    private void HandleEnemyHit(CardData cardData)
-    {
-        print("Enemy was hit!");
-        _enemyHealthController.TakeDamage(cardData.attackPower);
-        if (_enemyHealthController.IsAlive()) Invoke(nameof(TakeHitAnimEvent), takeHitAnimDelay);
-        else
+        protected override void Awake()
         {
-            Invoke(nameof(DeathAnimEvent), deathAnimDelay);
-            EnemyEvents.EnemyDeath();
+            base.Awake();
+            _enemyHealthController = GetComponent<EnemyHealthController>();
+            if (!_enemyHealthController) Debug.LogError("EnemyHealthController missing.");
+            _statusEffectController = GetComponent<StatusEffectController>();
+            if (!_statusEffectController) Debug.LogError("StatusEffectController missing.");
+        }
+
+        private void Update()
+        {
+            Animator.SetBool(StunnedAnimEvent, _statusEffectController.IsStunned);
+            SpriteRenderer.color = GetStatusColor();
+        }
+
+        private void OnEnable()
+        {
+            EnemyEvents.OnEnemyHit += HandleEnemyHit;
+            EnemyEvents.OnApplyStatusEffect += HandleStatusEffectApplied;
+
+            TurnEvents.OnEnemyTurnStart += Attack;
+            TurnEvents.OnEnemyTurnStart += ProcessStatusEffects;
+        }
+
+        private void OnDisable()
+        {
+            EnemyEvents.OnEnemyHit -= HandleEnemyHit;
+            EnemyEvents.OnApplyStatusEffect -= HandleStatusEffectApplied;
+
+            TurnEvents.OnEnemyTurnStart -= Attack;
+            TurnEvents.OnEnemyTurnStart -= ProcessStatusEffects;
         }
         
-    }
+        private void ProcessStatusEffects() => _statusEffectController.ProcessEffects();
 
-    private void Attack()
-    {
-        print("Enemy is attacking!");
-        StartCoroutine(EnemyAttackAnimEventCo());
-    }
-
-    private IEnumerator EnemyAttackAnimEventCo()
-    {
-        Vector3 targetPosition = _originalPosition + new Vector3(-2f, 0, 0);
-        float duration = 0.5f;
-        float elapsedTime = 0f;
-        
-        _animator.SetBool(MoveAnimEvent, true);
-        while (elapsedTime < duration)
+        private void HandleEnemyHit(int damage)
         {
-            transform.position = Vector3.Lerp(_originalPosition, targetPosition, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            _enemyHealthController.TakeDamage(damage);
+            if (_enemyHealthController.IsAlive()) Invoke(nameof(TakeHitAnimEvent), takeHitAnimDelay);
+            else
+            {
+                Invoke(nameof(DeathAnimEvent), deathAnimDelay);
+                EnemyEvents.EnemyDeath();
+            }
+        }
+
+        private void Attack()
+        {
+            if (_statusEffectController.IsStunned)
+            {
+                print("Enemy is stunned, skipping turn");
+                return;
+            }
+
+            StartCoroutine(AttackMoveCo(attackMovement, () => PlayerEvents.PlayerHit(attackDamage)));
         }
         
-        _animator.SetBool(MoveAnimEvent, false);
-        _animator.SetTrigger(Attack1AnimEvent);
-        PlayerEvents.PlayerHit(attackDamage);
-        yield return new WaitForSeconds(1f);
-        
-        elapsedTime = 0f;
-        
-        _animator.SetBool(MoveAnimEvent, true);
-        transform.localScale = new Vector3(-1, 1, 1);
-        while (elapsedTime < duration)
+        private void HandleStatusEffectApplied(StatusEffectType type, int damage, int duration)
         {
-            transform.position = Vector3.Lerp(targetPosition, _originalPosition, elapsedTime / duration);
-            elapsedTime += Time.deltaTime;
-            yield return null;
+            print($"Enemy received status effect: {type}, damage: {damage}, duration: {duration}");
+            StatusEffect effect = type switch
+            {
+                StatusEffectType.Poison   => new PoisonEffect(damage, duration),
+                StatusEffectType.Burn     => new BurnEffect(damage, duration),
+                StatusEffectType.Stun     => new StunEffect(duration),
+                StatusEffectType.Weakness => new WeaknessEffect(duration),
+                _ => null
+            };
+
+            if (effect != null) _statusEffectController.ApplyEffect(effect);
         }
         
-        _animator.SetBool(MoveAnimEvent, false);
-        transform.localScale = new Vector3(1, 1, 1);
-        
-        yield return null;
+        private Color GetStatusColor()
+        {
+            if (_statusEffectController.IsBurned)    return new Color(1f, 0.3f, 0f);      // orange-red
+            if (_statusEffectController.IsPoisoned)  return new Color(0f, 0.5f, 0f);      // dark green
+            if (_statusEffectController.IsWeakened)  return new Color(0.6f, 0.6f, 0.6f); // grey
+            return Color.white; // no effect
+        }
     }
-    
-    private void TakeHitAnimEvent() => _animator.SetTrigger(HitAnimParam);
-    
-    private void DeathAnimEvent() => _animator.SetTrigger(DeathAnimParam);
 }

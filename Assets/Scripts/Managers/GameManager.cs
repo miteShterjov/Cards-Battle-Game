@@ -1,9 +1,9 @@
-using System;
 using System.Collections;
+using Events;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Systems
+namespace Managers
 {
     public class GameManager : Singleton<GameManager>
     {

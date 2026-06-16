@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace Systems
+namespace Managers
 {
     public class Singleton<T> : MonoBehaviour where T : Singleton<T>
     {

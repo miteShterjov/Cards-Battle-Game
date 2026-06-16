@@ -1,21 +1,18 @@
-using System;
 using Cards;
 using UnityEngine;
 
-public class PlayZoneTrigger : MonoBehaviour
+namespace Triggers
 {
-    [SerializeField] private PlayerHand playerHand;
-    
-    private void OnTriggerEnter2D(Collider2D other)
+    public class PlayZoneTrigger : MonoBehaviour
     {
-        if (other.TryGetComponent(out Card card))
+        [SerializeField] private PlayerHand playerHand;
+    
+        private void OnTriggerEnter2D(Collider2D other)
         {
-            playerHand.PlayCard(card);
+            if (other.TryGetComponent(out Card card))
+            {
+                playerHand.PlayCard(card);
+            }
         }
     }
-
-    // private void OnTriggerExit2D(Collider2D other)
-    // {
-    //     if (other.TryGetComponent(out Card card)) print("Card Leaves");
-    // }
 }

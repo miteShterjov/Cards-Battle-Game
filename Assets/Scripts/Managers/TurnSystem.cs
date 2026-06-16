@@ -3,10 +3,9 @@ using Cards;
 using Events;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-namespace Systems
+namespace Managers
 {
     public class TurnSystem : Singleton<TurnSystem>
     {
@@ -32,6 +31,7 @@ namespace Systems
         private TurnState _currentTurnState = TurnState.PlayerTurn;
         private int _actionsRemaining;
         private GameObject[] _actionPoints;
+        private bool _isTransitioning;
 
         private void Start()
         {
@@ -57,16 +57,27 @@ namespace Systems
         public bool CanReshuffleDiscardPile() => _actionsRemaining >= reshuffleCost;
         public bool CanPlayCard(CardData cardData) => cardData.actionCost <= _actionsRemaining;
 
+        public void RequestEndPlayerTurn()
+        {
+            if (_isTransitioning) return;
+            if (_currentTurnState != TurnState.PlayerTurn) return;
+            if (!GameManager.Instance.IsGameActive) return;
+            EndPlayerTurn();
+        }
+
         private void StartPlayerTurn()
         {
             _currentTurnState = TurnState.PlayerTurn;
             _actionsRemaining = maxActionsPerTurn;
+            _isTransitioning = false;
             UpdateActionPointsUI();
+            UpdateTurnTextIsPlayerTurn(true);
             TurnEvents.PlayerTurnStart();
         }
 
         private void EndPlayerTurn()
         {
+            _isTransitioning = true;
             TurnEvents.PlayerTurnEnds();
             StartCoroutine(WaitBetweenTurns());
         }

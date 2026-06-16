@@ -29,6 +29,8 @@ namespace Cards
             cardNameText.text = cardData.cardName;
             actionsPointText.text = cardData.actionCost.ToString();
         }
+        
+        public CardData GetCardData() => _cardData;
 
         private void OnMouseEnter()
         {

@@ -12,9 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5afcded5c072bd69aa35e120cc28f179, type: 3}
   m_Name: Superior Heal
   m_EditorClassIdentifier: Assembly-CSharp::CardData
+  type: 1
+  damageType: 1
+  defenseType: 2
   cardName: Superior Heal
   description: Heal for 7 points
   actionCost: 3
   illustration: {fileID: 6355480216337973169, guid: c38f5f4203b0818ca92750e8a7bf020f, type: 3}
   attackPower: 0
   healPower: 7
+  defensePower: 0

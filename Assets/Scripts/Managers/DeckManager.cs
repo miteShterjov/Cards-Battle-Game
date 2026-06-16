@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using Cards;
 using Events;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace Systems
+namespace Managers
 {
     public class DeckManager : Singleton<DeckManager>
     {

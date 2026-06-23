@@ -13,11 +13,6 @@ namespace UI
         private readonly List<GameObject> _cardTabGameObjects = new List<GameObject>();
         private const float VerticalSpacing = 0.6f;
 
-        private void Start()
-        {
-            if (DeckManager.Instance != null) BuildTheUI();
-        }
-
         private void OnEnable()
         {
             DeckEvents.OnDeckProcessed += BuildTheUI;

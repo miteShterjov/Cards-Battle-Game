@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using SaveSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,7 +9,7 @@ namespace Cards
     public class CardCollection : MonoBehaviour
     {
         [Header("Card Collection Config")]
-        [SerializeField] private List<CardData> availableCards;
+        [SerializeField] private CardDatabase cardDatabase; // ← replaces allCards list
         [SerializeField] private Transform[] cardSlots;
         [SerializeField] private GameObject cardPrefab;
 
@@ -15,13 +17,18 @@ namespace Cards
         [SerializeField] private Button nextPageButton;
         [SerializeField] private Button prevPageButton;
 
+        private List<CardData> _ownedCards;
         private int _currentPage;
         private int CardsPerPage => cardSlots.Length;
-        private int TotalPages => Mathf.CeilToInt((float)availableCards.Count / CardsPerPage);
+        private int TotalPages => Mathf.CeilToInt((float)_ownedCards.Count / CardsPerPage);
 
         private readonly List<GameObject> _spawnedCards = new List<GameObject>();
 
-        private void Start() => LoadPage(0);
+        private void Start()
+        {
+            RefreshOwnedCards();
+            LoadPage(0);
+        }
 
         private void OnEnable()
         {
@@ -33,6 +40,14 @@ namespace Cards
         {
             nextPageButton.onClick.RemoveListener(NextPage);
             prevPageButton.onClick.RemoveListener(PrevPage);
+        }
+
+        private void RefreshOwnedCards()
+        {
+            _ownedCards = cardDatabase.allCards
+                .Where(card => PlayerDataManager.Instance.OwnsCard(card.cardId))
+                .ToList();
+            Debug.Log($"Owned cards: {_ownedCards.Count} / Total cards: {cardDatabase.allCards.Count}");
         }
 
         private void NextPage()
@@ -62,7 +77,7 @@ namespace Cards
             for (int i = 0; i < CardsPerPage; i++)
             {
                 int cardIndex = startIndex + i;
-                if (cardIndex >= availableCards.Count) break; // last page might not be full
+                if (cardIndex >= _ownedCards.Count) break;
                 SpawnCard(cardIndex, i);
             }
 
@@ -72,7 +87,7 @@ namespace Cards
         private void SpawnCard(int cardIndex, int slotIndex)
         {
             GameObject card = Instantiate(cardPrefab, cardSlots[slotIndex].position, Quaternion.identity, cardSlots[slotIndex]);
-            card.GetComponent<Card>().LoadCardData(availableCards[cardIndex]);
+            card.GetComponent<Card>().LoadCardData(_ownedCards[cardIndex]);
             _spawnedCards.Add(card);
         }
 
@@ -89,22 +104,3 @@ namespace Cards
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

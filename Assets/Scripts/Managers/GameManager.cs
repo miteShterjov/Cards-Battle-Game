@@ -1,5 +1,6 @@
 using System.Collections;
 using Events;
+using SaveSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -13,31 +14,39 @@ namespace Managers
         [SerializeField] private float transitionTime = 2f;
         [SerializeField] private GameObject winUI;
         [SerializeField] private GameObject loseUI;
+        [Header("Gold Rewards")]
+        [SerializeField] private int winGoldReward = 4;
+        [SerializeField] private int lossGoldReward = 1;
 
         private void OnEnable()
         {
-            EnemyEvents.OnEnemyDeath += PlayerWin;
-            PlayerEvents.OnPlayerDeath += PlayerLoose;
+            EnemyEvents.OnEnemyDeath += HandlePlayerWin;
+            PlayerEvents.OnPlayerDeath += HandlePlayerLoss;
         }
 
         private void OnDisable()
         {
-            EnemyEvents.OnEnemyDeath -= PlayerWin;
-            PlayerEvents.OnPlayerDeath -= PlayerLoose;
+            EnemyEvents.OnEnemyDeath -= HandlePlayerWin;
+            PlayerEvents.OnPlayerDeath -= HandlePlayerLoss;
+        }
+        
+        private void HandlePlayerWin() => EndGameSequence(true);
+        private void HandlePlayerLoss() => EndGameSequence(false);
+
+
+        private void EndGameSequence(bool win)
+        {
+            PlayerDataManager.Instance.AddGold(win ? winGoldReward : lossGoldReward);
+            
+            if (win) PlayerDataManager.Instance.CurrentData.wins++;
+            else PlayerDataManager.Instance.CurrentData.losses++;
+            
+            PlayerDataManager.Instance.SaveGame();
+            
+            StartCoroutine(RestartGameCo(win));
+            IsGameActive = false;
         }
 
-        private void PlayerWin()
-        {
-            StartCoroutine(RestartGameCo(true));
-            IsGameActive = false;
-        }
-        
-        private void PlayerLoose()
-        {
-            StartCoroutine(RestartGameCo(false));
-            IsGameActive = false;
-        }
-        
         private IEnumerator RestartGameCo(bool win)
         {
             yield return new WaitForSeconds(transitionTime);

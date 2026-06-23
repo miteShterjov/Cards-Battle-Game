@@ -19,7 +19,8 @@ namespace Managers
         [SerializeField] private float turnTime = 3f;
 
         [Header("Turn Action System")] 
-        [SerializeField] private int maxActionsPerTurn = 3;
+        [SerializeField] private int startingActionPoints = 2;
+        [SerializeField] private int actionPointCap = 7;
         [SerializeField] private TextMeshProUGUI actionPointsText;
         [SerializeField] private int drawCardCost = 1;
         [SerializeField] private int reshuffleCost = 3;
@@ -29,6 +30,7 @@ namespace Managers
         [SerializeField] private TextMeshProUGUI timeText;
 
         private TurnState _currentTurnState = TurnState.PlayerTurn;
+        private int _currentMaxActions;
         private int _actionsRemaining;
         private GameObject[] _actionPoints;
         private bool _isTransitioning;
@@ -42,14 +44,14 @@ namespace Managers
         private void OnEnable()
         {
             PlayerEvents.OnCardPlayed += CardPlayed;
-            PlayerEvents.OnDrawCardRequested += DrawRequested;
+            PlayerEvents.OnDrawCardSucceeded += DrawSucceeded;
             PlayerEvents.OnReshuffleRequested += ReshuffleRequested;
         }
 
         private void OnDisable()
         {
             PlayerEvents.OnCardPlayed -= CardPlayed;
-            PlayerEvents.OnDrawCardRequested -= DrawRequested;
+            PlayerEvents.OnDrawCardSucceeded -= DrawSucceeded;
             PlayerEvents.OnReshuffleRequested -= ReshuffleRequested;
         }
 
@@ -68,7 +70,11 @@ namespace Managers
         private void StartPlayerTurn()
         {
             _currentTurnState = TurnState.PlayerTurn;
-            _actionsRemaining = maxActionsPerTurn;
+
+            _currentMaxActions = _currentMaxActions == 0 ? startingActionPoints : // first turn only
+                Mathf.Min(_currentMaxActions + 1, actionPointCap);
+
+            _actionsRemaining = _currentMaxActions;
             _isTransitioning = false;
             UpdateActionPointsUI();
             UpdateTurnTextIsPlayerTurn(true);
@@ -117,11 +123,7 @@ namespace Managers
             ConsumeAction(cardData.actionCost);
         }
 
-        private void DrawRequested()
-        {
-            ConsumeAction(drawCardCost);
-            UpdateActionPointsUI();
-        }
+        private void DrawSucceeded() => ConsumeAction(drawCardCost);
 
         private void ConsumeAction(int amount)
         {
@@ -147,24 +149,22 @@ namespace Managers
 
         private void CreateActionPointUI()
         {
-            _actionPoints = new GameObject[maxActionsPerTurn];
-            for (int i = 0; i < maxActionsPerTurn; i++)
+            _actionPoints = new GameObject[actionPointCap];
+            for (int i = 0; i < actionPointCap; i++)
             {
                 Image actionPointImage = Instantiate(actionPointsImagePrefab, actionPointsUI);
                 _actionPoints[i] = actionPointImage.gameObject;
+                _actionPoints[i].SetActive(false);
             }
         }
 
         private void UpdateActionPointsUI()
         {
-            if (_actionsRemaining < maxActionsPerTurn)
+            for (int i = 0; i < actionPointCap; i++)
             {
-                for (int i = 0; i < maxActionsPerTurn - _actionsRemaining; i++) _actionPoints[i].SetActive(false);
-            }
-
-            if (_actionsRemaining == maxActionsPerTurn)
-            {
-                for (int i = 0; i < maxActionsPerTurn; i++) _actionPoints[i].SetActive(true);
+                bool isUnlocked = i < _currentMaxActions;
+                bool isFilled = i < _actionsRemaining;
+                _actionPoints[i].SetActive(isUnlocked && isFilled);
             }
         }
 

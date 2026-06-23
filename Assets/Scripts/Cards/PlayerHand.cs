@@ -53,10 +53,14 @@ namespace Cards
 
         private void DrawNextCard()
         {
-            if (_cardsInHand.Count >= maxHandSize) return;
+            if (_cardsInHand.Count >= maxHandSize)
+            {
+                Debug.Log("Hand is full, cannot draw.");
+                return; // bail before touching AP at all
+            }
 
             CardData cardData = deck.DrawCard();
-            if (cardData == null) return;
+            if (cardData == null) return; // deck empty
 
             GameObject newCard = Instantiate(cardPrefab, transform.position, Quaternion.identity, transform);
             Card cardComponent = newCard.GetComponent<Card>();
@@ -67,6 +71,8 @@ namespace Cards
 
             _cardsInHand.Add(cardComponent);
             RepositionCards();
+
+            PlayerEvents.DrawCardSucceeded(); // ← new event, only fires on actual success
         }
 
         private void RepositionCards()

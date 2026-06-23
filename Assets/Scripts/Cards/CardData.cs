@@ -6,6 +6,7 @@ namespace Cards
     public class CardData : ScriptableObject
     {
         [Header("Card Info")]
+        public string cardId;
         public CardType type;
         public string cardName;
         public string description;
@@ -27,6 +28,16 @@ namespace Cards
         public StatusEffectType statusEffectType = StatusEffectType.None;
         public int statusEffectDamage;  // for Poison and Burn
         public int statusEffectDuration;
+        
+        #if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (string.IsNullOrEmpty(cardId) && !string.IsNullOrEmpty(cardName))
+            {
+                cardId = cardName.ToLower().Replace(" ", "_");
+            }
+        }
+        #endif
     }
 
     public enum CardType { Attack, Heal, Defend, Debuff }

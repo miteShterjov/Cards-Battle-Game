@@ -11,6 +11,7 @@ namespace Events
         public static event Action OnDrawCardRequested;
         public static event Action OnReshuffleRequested;
         public static event Action OnPlayerHealed;
+        public static event Action OnDrawCardSucceeded;
 
         public static void CardPlayed(CardData cardData) => OnCardPlayed?.Invoke(cardData);
         public static void PlayerHit(int damage) => OnPlayerHit?.Invoke(damage);
@@ -18,5 +19,6 @@ namespace Events
         public static void DrawCardRequested() => OnDrawCardRequested?.Invoke();
         public static void ReshuffleRequested() => OnReshuffleRequested?.Invoke();
         public static void PlayerHealed() => OnPlayerHealed?.Invoke();
+        public static void DrawCardSucceeded() => OnDrawCardSucceeded?.Invoke();
     }
 }

@@ -9,16 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c1f143f800e413319ad88a709a6759d, type: 3}
-  m_Name: DefaultDeck
-  m_EditorClassIdentifier: Assembly-CSharp::Cards.DefaultDeck
-  cards:
+  m_Script: {fileID: 11500000, guid: 74d9393837e4c24b7993f8e5039ce29a, type: 3}
+  m_Name: MasterCardDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::Cards.CardDatabase
+  allCards:
   - {fileID: 11400000, guid: cad1a8aea57ee36caa4af4daa300e4fe, type: 2}
   - {fileID: 11400000, guid: 6bd46dadb48a439ef90a62d20a588078, type: 2}
   - {fileID: 11400000, guid: c7ee94a090acfbce6aef94995346ad75, type: 2}
+  - {fileID: 11400000, guid: 5fa87849015bdea1593015083d9c2e35, type: 2}
+  - {fileID: 11400000, guid: 5eb3b07059b0642e3bf2adce3c21eeb0, type: 2}
   - {fileID: 11400000, guid: 4cc3fa99d4668c393b0f980dcfb86552, type: 2}
   - {fileID: 11400000, guid: 85de9a51498c39151bf01b1ed143f7ba, type: 2}
   - {fileID: 11400000, guid: 838683855b8029ad386159fda3f467cd, type: 2}
-  - {fileID: 11400000, guid: cad1a8aea57ee36caa4af4daa300e4fe, type: 2}
-  - {fileID: 11400000, guid: 6bd46dadb48a439ef90a62d20a588078, type: 2}
-  - {fileID: 11400000, guid: c7ee94a090acfbce6aef94995346ad75, type: 2}
+  - {fileID: 11400000, guid: da29da9a381eadf4d888e42ec8d4ae9b, type: 2}
+  - {fileID: 11400000, guid: 61e3ed617c603ebf2a98086a6a4d1572, type: 2}

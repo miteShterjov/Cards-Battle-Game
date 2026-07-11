@@ -30,11 +30,8 @@ namespace SaveSystem
             Debug.Log(JsonUtility.ToJson(CurrentData, true)); // pretty-printed save data
         }
 
-        public void SaveGame()
-        {
-            SaveManager.Save(CurrentData);
-        }
-
+        public void SaveGame() => SaveManager.Save(CurrentData);
+        
         public void AddGold(int amount)
         {
             CurrentData.gold += amount;
@@ -76,16 +73,25 @@ namespace SaveSystem
             if (SaveManager.SaveFileExists())
             {
                 CurrentData = SaveManager.Load();
+                if (CurrentData == null) // safety net if file exists but is corrupt
+                {
+                    CreateDefaultSave();
+                }
             }
             else
             {
-                List<string> starterCardIds = new List<string>();
-                foreach (CardData card in starterDeck.cards)
-                    starterCardIds.Add(card.cardId);
-
-                CurrentData = PlayerSaveData.CreateDefault(starterCardIds);
-                SaveManager.Save(CurrentData);
+                CreateDefaultSave();
             }
+        }
+
+        private void CreateDefaultSave()
+        {
+            List<string> starterCardIds = new List<string>();
+            foreach (CardData card in starterDeck.cards)
+                starterCardIds.Add(card.cardId);
+
+            CurrentData = PlayerSaveData.CreateDefault(starterCardIds);
+            SaveManager.Save(CurrentData);
         }
     }
 }

@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0b04d1e8615489a2a7d23e6459ddd46, type: 3}
+  m_Name: GoblinData
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemy.EnemyData
+  enemyName: Goblin
+  maxHealth: 28
+  animatorController: {fileID: 22100000, guid: 81058c7ebebae3439b9e5bc6062f857f, type: 2}
+  moves:
+  - moveName: Stab
+    actionType: 0
+    weight: 50
+    cooldownTurns: 0
+    turnsUntilAvailable: 0
+    damage: 5
+    damageType: 0
+    armorValue: 0
+    healAmount: 0
+    statusEffectType: 0
+    statusEffectDamage: 0
+    statusEffectDuration: 0
+  - moveName: Cripple
+    actionType: 2
+    weight: 35
+    cooldownTurns: 2
+    turnsUntilAvailable: 0
+    damage: 0
+    damageType: 0
+    armorValue: 0
+    healAmount: 0
+    statusEffectType: 4
+    statusEffectDamage: 0
+    statusEffectDuration: 2
+  - moveName: Dodge
+    actionType: 1
+    weight: 15
+    cooldownTurns: 0
+    turnsUntilAvailable: 0
+    damage: 0
+    damageType: 0
+    armorValue: 4
+    healAmount: 0
+    statusEffectType: 0
+    statusEffectDamage: 0
+    statusEffectDuration: 0
+  maxRepeatCount: 2

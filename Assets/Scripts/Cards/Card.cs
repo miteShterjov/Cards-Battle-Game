@@ -25,7 +25,8 @@ namespace Cards
         private Quaternion _originalRotation;
         private int _originalSortingOrder;
         private static bool _isBeingDragged;
-
+        private bool _hoverEnabled = true;
+        
         private Collider2D _cardCollider;
         private SortingGroup _sortingGroup;
         private CardData _cardData;
@@ -53,7 +54,7 @@ namespace Cards
         }
 
         public CardData GetCardData() => _cardData;
-
+        
         public void LoadCardData(CardData cardData)
         {
             _cardData = cardData;
@@ -65,6 +66,7 @@ namespace Cards
         }
 
         public void SetInteractable(bool isInteractable) => _cardCollider.enabled = isInteractable;
+        public void SetHoverEnabled(bool value) => _hoverEnabled = value;
 
         private void AdjustCardColor(CardData cardData)
         {
@@ -92,6 +94,7 @@ namespace Cards
 
         private void OnMouseEnter()
         {
+            if (!_hoverEnabled) return;
             if (_isBeingDragged) return;
             transform.localScale = _originalScale * hoverMultiplier;
             transform.localPosition += hoverPositionOffset;
@@ -101,6 +104,7 @@ namespace Cards
 
         private void OnMouseExit()
         {
+            if (!_hoverEnabled) return;
             if (_isBeingDragged) return;
             transform.localScale = _originalScale;
             transform.localPosition = _originalLocalPosition;
@@ -110,6 +114,7 @@ namespace Cards
 
         private void OnMouseDrag()
         {
+            if (!_hoverEnabled) return;
             _isBeingDragged = true;
             transform.rotation = Quaternion.identity;
             transform.position = GetMousePosition();
@@ -117,6 +122,7 @@ namespace Cards
 
         private void OnMouseUp()
         {
+            if (!_hoverEnabled) return;
             _isBeingDragged = false;
             transform.localScale = _originalScale;
             transform.localPosition = _originalLocalPosition;

@@ -18,10 +18,8 @@ namespace SaveSystem
         {
             if (!File.Exists(SavePath))
             {
-                Debug.Log("No save file found, creating default save.");
-                PlayerSaveData defaultData = PlayerSaveData.CreateDefault();
-                Save(defaultData);
-                return defaultData;
+                Debug.Log("No save file found.");
+                return null; // ← let PlayerDataManager handle default creation
             }
 
             string json = File.ReadAllText(SavePath);

@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0b04d1e8615489a2a7d23e6459ddd46, type: 3}
+  m_Name: SkeletonData
+  m_EditorClassIdentifier: Assembly-CSharp::Entities.Enemy.EnemyData
+  enemyName: Skeleton
+  maxHealth: 28
+  animatorController: {fileID: 22100000, guid: 18b750b6ec1f079ef878e74ab4a82f84, type: 2}
+  moves:
+  - moveName: Bone Slash
+    actionType: 0
+    weight: 45
+    cooldownTurns: 0
+    turnsUntilAvailable: 0
+    damage: 7
+    damageType: 0
+    armorValue: 0
+    healAmount: 0
+    statusEffectType: 0
+    statusEffectDamage: 0
+    statusEffectDuration: 0
+  - moveName: Shield Wall
+    actionType: 1
+    weight: 0
+    cooldownTurns: 1
+    turnsUntilAvailable: 0
+    damage: 0
+    damageType: 0
+    armorValue: 9
+    healAmount: 0
+    statusEffectType: 0
+    statusEffectDamage: 0
+    statusEffectDuration: 0
+  - moveName: Crushing Blow
+    actionType: 0
+    weight: 15
+    cooldownTurns: 3
+    turnsUntilAvailable: 0
+    damage: 12
+    damageType: 0
+    armorValue: 0
+    healAmount: 0
+    statusEffectType: 0
+    statusEffectDamage: 0
+    statusEffectDuration: 0
+  maxRepeatCount: 2

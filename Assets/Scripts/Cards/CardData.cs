@@ -11,6 +11,7 @@ namespace Cards
         public string cardName;
         public string description;
         public int actionCost;
+        public int goldCost;
         public Sprite illustration;
 
         [Header("Damage")]

@@ -5,7 +5,7 @@ namespace StatusEffects
     public class WeaknessEffect : StatusEffect
     {
         public override string EffectName => "Weakness";
-        public float DamageMultiplier => 0.5f; // 50% damage reduction
+        public float DamageMultiplier => 0.5f;
 
         public WeaknessEffect(int duration) : base(duration) { }
 

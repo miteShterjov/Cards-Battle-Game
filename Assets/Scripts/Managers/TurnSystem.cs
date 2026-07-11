@@ -107,22 +107,15 @@ namespace Managers
                 timeText.text = "turn ends in: " + i;
                 yield return new WaitForSeconds(1f);
             }
+            
             if (!GameManager.Instance.IsGameActive) yield break;
-            if (_currentTurnState == TurnState.EnemyTurn)
-            {
-                StartPlayerTurn();
-            }
-            else
-            {
-                StartEnemyTurn();
-            }
+            
+            if (_currentTurnState == TurnState.EnemyTurn) StartPlayerTurn();
+            else StartEnemyTurn();
         }
 
-        private void CardPlayed(CardData cardData)
-        {
-            ConsumeAction(cardData.actionCost);
-        }
-
+        private void CardPlayed(CardData cardData) => ConsumeAction(cardData.actionCost);
+        
         private void DrawSucceeded() => ConsumeAction(drawCardCost);
 
         private void ConsumeAction(int amount)
@@ -142,11 +135,8 @@ namespace Managers
             EndEnemyTurn();
         }
 
-        private void ReshuffleRequested()
-        {
-            ConsumeAction(reshuffleCost);
-        }
-
+        private void ReshuffleRequested() => ConsumeAction(reshuffleCost);
+        
         private void CreateActionPointUI()
         {
             _actionPoints = new GameObject[actionPointCap];

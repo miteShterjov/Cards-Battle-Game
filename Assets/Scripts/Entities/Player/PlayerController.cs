@@ -8,26 +8,15 @@ namespace Entities.Player
 {
     public class PlayerController : CombatantController
     {
-        [Header("Heal Visual Config")]
-        [SerializeField] private GameObject healVisualPrefab;
-        [SerializeField] private float healVisualScale = 0.6f;
-
-        private PlayerHealthController _playerHealthController;
-        private StatusEffectController _statusEffectController;
-
-        protected override void Awake()
-        {
-            base.Awake();
-            _playerHealthController = GetComponent<PlayerHealthController>();
-            if (!_playerHealthController) Debug.LogError("PlayerHealthController missing.");
-            _statusEffectController = GetComponent<StatusEffectController>();
-            if (!_statusEffectController) Debug.LogError("StatusEffectController missing.");
-        }
+        [Header("Enemy Reference")]
+        // will need rework when implementing multiple enemies logic later on
+        [SerializeField] private StatusEffectController enemyStatusEffectController;
 
         private void OnEnable()
         {
             PlayerEvents.OnCardPlayed += HandleCardPlayed;
             PlayerEvents.OnPlayerHit += PlayerHit;
+            PlayerEvents.OnApplyStatusEffect += HandleStatusEffectApplied;
             TurnEvents.OnPlayerTurnStart += ProcessStatusEffects;
         }
 
@@ -35,25 +24,33 @@ namespace Entities.Player
         {
             PlayerEvents.OnCardPlayed -= HandleCardPlayed;
             PlayerEvents.OnPlayerHit -= PlayerHit;
+            PlayerEvents.OnApplyStatusEffect -= HandleStatusEffectApplied;
             TurnEvents.OnPlayerTurnStart -= ProcessStatusEffects;
         }
         
-        private void ProcessStatusEffects() => _statusEffectController.ProcessEffects();
+        protected override void HandleDeathFromStatusEffect()
+        {
+            base.HandleDeathFromStatusEffect();
+            PlayerEvents.PlayerDeath();
+        }
+
+        private void ProcessStatusEffects() => StatusEffectController.ProcessEffects();
 
         private void HandleCardPlayed(CardData cardData)
         {
             switch (cardData.type)
             {
                 case CardType.Attack:
-                    int damage = Mathf.RoundToInt(cardData.attackPower * _statusEffectController.WeaknessMultiplier);
+                    int damage = Mathf.RoundToInt(cardData.attackPower * enemyStatusEffectController.WeaknessMultiplier);
                     StartCoroutine(AttackMoveCo(new Vector3(4f, 0, 0), 
                         () => EnemyEvents.EnemyHit(damage)));
                     break;
                 case CardType.Heal:
-                    Heal(cardData);
+                    Heal(cardData.healPower); 
+                    PlayerEvents.PlayerHealed();
                     break;
                 case CardType.Defend:
-                    _playerHealthController.AddArmor(cardData.defensePower);
+                    HealthController.AddArmor(cardData.defensePower);
                     break;
                 case CardType.Debuff:
                     ApplyStatusEffectToEnemy(cardData);
@@ -63,16 +60,10 @@ namespace Entities.Player
             }
         }
 
-        private void Heal(CardData cardData)
+        private void PlayerHit(int damage, DamageType type)
         {
-            _playerHealthController.HealDamage(cardData.healPower);
-            CastHealVisualEffect();
-        }
-
-        private void PlayerHit(int damage)
-        {
-            _playerHealthController.TakeDamage(damage);
-            if (_playerHealthController.IsAlive()) TakeHitAnimEvent();
+            HealthController.TakeDamage(damage, type);
+            if (HealthController.IsAlive()) TakeHitAnimEvent();
             else
             {
                 DeathAnimEvent();
@@ -89,11 +80,19 @@ namespace Entities.Player
              cardData.statusEffectDamage, 
              cardData.statusEffectDuration);
         }
-
-        private void CastHealVisualEffect()
+        
+        private void HandleStatusEffectApplied(StatusEffectType type, int damage, int duration)
         {
-            GameObject healVisual = Instantiate(healVisualPrefab, transform.position, Quaternion.identity, transform);
-            healVisual.transform.localScale = Vector3.one * healVisualScale;
+            StatusEffect effect = type switch
+            {
+                StatusEffectType.Poison   => new PoisonEffect(damage, duration),
+                StatusEffectType.Burn     => new BurnEffect(damage, duration),
+                StatusEffectType.Stun     => new StunEffect(duration),
+                StatusEffectType.Weakness => new WeaknessEffect(duration),
+                _ => null
+            };
+
+            if (effect != null) StatusEffectController.ApplyEffect(effect);
         }
     }
 }

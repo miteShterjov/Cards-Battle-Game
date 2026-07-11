@@ -15,16 +15,15 @@ namespace Cards
 
         [Header("Hand Layout Config")]
         [SerializeField] private float cardSpacing = 1.2f;
-        [SerializeField] private float arcHeight = 0.8f;      // how much cards dip in the middle
-        [SerializeField] private float maxRotation = 15f;     // tilt angle on outermost cards
+        [SerializeField] private float arcHeight = 0.8f;      
+        [SerializeField] private float maxRotation = 15f;     
         [SerializeField] private int maxHandSize = 5;
 
         private readonly List<Card> _cardsInHand = new List<Card>();
 
         private void Start()
         {
-            for (int i = 0; i < startingHandSize; i++)
-                DrawNextCard();
+            for (int i = 0; i < startingHandSize; i++) DrawNextCard();
         }
 
         private void OnEnable()
@@ -56,11 +55,11 @@ namespace Cards
             if (_cardsInHand.Count >= maxHandSize)
             {
                 Debug.Log("Hand is full, cannot draw.");
-                return; // bail before touching AP at all
+                return;
             }
 
             CardData cardData = deck.DrawCard();
-            if (cardData == null) return; // deck empty
+            if (cardData == null) return; 
 
             GameObject newCard = Instantiate(cardPrefab, transform.position, Quaternion.identity, transform);
             Card cardComponent = newCard.GetComponent<Card>();
@@ -72,7 +71,7 @@ namespace Cards
             _cardsInHand.Add(cardComponent);
             RepositionCards();
 
-            PlayerEvents.DrawCardSucceeded(); // ← new event, only fires on actual success
+            PlayerEvents.DrawCardSucceeded(); 
         }
 
         private void RepositionCards()
@@ -88,17 +87,19 @@ namespace Cards
 
                 _cardsInHand[i].transform.position = transform.position + new Vector3(xPos, yPos, i * -0.01f);
                 _cardsInHand[i].transform.rotation = Quaternion.Euler(0, 0, rotation);
-                _cardsInHand[i].UpdateOriginalTransform(); // ← keep cache in sync
+                _cardsInHand[i].UpdateOriginalTransform();
             }
         }
 
         private void DisableHand()
         {
+            Debug.Log("DisableHand called");
             foreach (Card card in _cardsInHand) card.SetInteractable(false);
         }
 
         private void EnableHand()
         {
+            Debug.Log("EnableHand called");
             foreach (Card card in _cardsInHand) card.SetInteractable(true);
         }
     }

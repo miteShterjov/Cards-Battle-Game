@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a49e5a4a9082654a3b485d8603feb2de, type: 3}
+  m_Name: CardBackMasterDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::Cosmetics.CardBackDatabase
+  allCardBacks:
+  - {fileID: 11400000, guid: 33216b080de9234aeb3d93c1453ac915, type: 2}
+  - {fileID: 11400000, guid: f3b6ae87d1bc7208e88d7e0168e83b44, type: 2}
+  - {fileID: 11400000, guid: f8949a1a26ea1a8b38b38e56f16edaca, type: 2}
+  - {fileID: 11400000, guid: 80c71a62f9fdd09138320fffa43484ad, type: 2}
+  - {fileID: 11400000, guid: 2bca55e51ff91710cb58ceaa26495a1e, type: 2}
+  - {fileID: 11400000, guid: a6ed7703207f27e98b4c45d48bf87e04, type: 2}
+  - {fileID: 11400000, guid: a5416e4e296e6ca3491a5a3592db332e, type: 2}
+  - {fileID: 11400000, guid: c157f9a89e11680418a5feabaee210c2, type: 2}
+  - {fileID: 11400000, guid: ba08ff454e0ce148d87240350f79b556, type: 2}
+  - {fileID: 11400000, guid: 535782d4d21622907bb068808ada9d89, type: 2}
+  - {fileID: 11400000, guid: 4173c1fe715ea121dbab93cb50dc1e9c, type: 2}
+  - {fileID: 11400000, guid: 5bebccb58c0fa7dc6838229f7a007e5f, type: 2}
+  defaultCardBack: {fileID: 11400000, guid: eb660d49058cd3b2fb9c7081f77f635d, type: 2}

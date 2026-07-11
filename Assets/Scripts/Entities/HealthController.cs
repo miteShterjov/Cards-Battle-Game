@@ -1,34 +1,41 @@
+using Cards;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Entities
 {
-    public enum DamageType { Physical, Magical }
-    
     public class HealthController : MonoBehaviour
     {
         [Header("Health Config")]
         [SerializeField] private int maxHealth = 100;
-        
+
         [Header("Health Visuals Config")]
         [SerializeField] private TextMeshProUGUI healthText;
         [SerializeField] private Slider healthSlider;
-        
+
         [Header("Armor Config")]
         [SerializeField] private TextMeshPro armorText;
         [SerializeField] private GameObject shieldVisual;
-        
+
         [Header("Debugging and Testing")]
         [SerializeField] private int currentHealth;
         [SerializeField] private int currentArmor;
-        
+
         private int ArmorCap => maxHealth / 3;
 
         private void Start()
         {
             currentHealth = maxHealth;
+            currentArmor = 0;
+            UpdateHealthUI();
+            UpdateArmorUI();
+        }
+        
+        public void SetMaxHealth(int value)
+        {
+            maxHealth = value;
+            currentHealth = value;
             currentArmor = 0;
             UpdateHealthUI();
             UpdateArmorUI();
@@ -45,14 +52,12 @@ namespace Entities
         {
             if (currentHealth <= 0) return;
 
-            if (type == DamageType.Magical)
+            if (type is DamageType.Magical or DamageType.Pure)
             {
-                // bypasses armor entirely
                 currentHealth = Mathf.Clamp(currentHealth - amount, 0, maxHealth);
             }
             else
             {
-                // hits armor first, remainder hits HP
                 int damageToArmor = Mathf.Min(amount, currentArmor);
                 currentArmor -= damageToArmor;
                 int remainingDamage = amount - damageToArmor;
@@ -81,7 +86,7 @@ namespace Entities
         private void UpdateArmorUI()
         {
             armorText.text = currentArmor.ToString();
-            shieldVisual.SetActive(currentArmor > 0); // shield on only when armor > 0
+            shieldVisual.SetActive(currentArmor > 0);
         }
     }
 }

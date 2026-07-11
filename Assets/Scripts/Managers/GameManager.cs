@@ -2,7 +2,6 @@ using System.Collections;
 using Events;
 using SaveSystem;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Managers
 {
@@ -33,31 +32,32 @@ namespace Managers
         private void HandlePlayerWin() => EndGameSequence(true);
         private void HandlePlayerLoss() => EndGameSequence(false);
 
-
         private void EndGameSequence(bool win)
         {
             PlayerDataManager.Instance.AddGold(win ? winGoldReward : lossGoldReward);
-            
+
             if (win) PlayerDataManager.Instance.CurrentData.wins++;
             else PlayerDataManager.Instance.CurrentData.losses++;
-            
+
             PlayerDataManager.Instance.SaveGame();
-            
-            StartCoroutine(RestartGameCo(win));
             IsGameActive = false;
+            StartCoroutine(win ? WinSequenceCo() : LoseSequenceCo());
         }
 
-        private IEnumerator RestartGameCo(bool win)
+        private IEnumerator WinSequenceCo()
         {
+            winUI.SetActive(true);
             yield return new WaitForSeconds(transitionTime);
-            if (win) winUI.SetActive(true);
-            else loseUI.SetActive(true);
-            
+            winUI.SetActive(false);
+            RunManager.Instance.NodeCompleted();
+        }
+
+        private IEnumerator LoseSequenceCo()
+        {
+            loseUI.SetActive(true);
             yield return new WaitForSeconds(transitionTime);
-            if (win) winUI.SetActive(false);
-            else loseUI.SetActive(false);
-            
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            loseUI.SetActive(false);
+            RunManager.Instance.RunFailed();
         }
     }
 }

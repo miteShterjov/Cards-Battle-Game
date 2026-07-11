@@ -1,6 +1,7 @@
 using Cards;
 using Events;
 using StatusEffects;
+using TMPro;
 using UnityEngine;
 
 namespace Entities.Enemy
@@ -8,29 +9,20 @@ namespace Entities.Enemy
     public class EnemyController : CombatantController
     {
         [Header("Enemy Config")]
-        [SerializeField] private int attackDamage = 10;
         [SerializeField] private float takeHitAnimDelay = 0.25f;
         [SerializeField] private float deathAnimDelay = 0.25f;
         [SerializeField] private Vector3 attackMovement = new Vector3(-2f, 0, 0);
 
-        private EnemyHealthController _enemyHealthController;
-        private StatusEffectController _statusEffectController;
+        [Header("Telegraph Moves")]
+        [SerializeField] private EnemyAI enemyAI;
+        [SerializeField] private TextMeshProUGUI intentText;
 
-        
+        private Animator _animator;
 
         protected override void Awake()
         {
             base.Awake();
-            _enemyHealthController = GetComponent<EnemyHealthController>();
-            if (!_enemyHealthController) Debug.LogError("EnemyHealthController missing.");
-            _statusEffectController = GetComponent<StatusEffectController>();
-            if (!_statusEffectController) Debug.LogError("StatusEffectController missing.");
-        }
-
-        private void Update()
-        {
-            Animator.SetBool(StunnedAnimEvent, _statusEffectController.IsStunned);
-            SpriteRenderer.color = GetStatusColor();
+            _animator = GetComponentInChildren<Animator>();
         }
 
         private void OnEnable()
@@ -38,7 +30,8 @@ namespace Entities.Enemy
             EnemyEvents.OnEnemyHit += HandleEnemyHit;
             EnemyEvents.OnApplyStatusEffect += HandleStatusEffectApplied;
 
-            TurnEvents.OnEnemyTurnStart += Attack;
+            TurnEvents.OnPlayerTurnStart += TelegraphNextMove;
+            TurnEvents.OnEnemyTurnStart += ExecuteTelegraphedMove;
             TurnEvents.OnEnemyTurnStart += ProcessStatusEffects;
         }
 
@@ -47,16 +40,31 @@ namespace Entities.Enemy
             EnemyEvents.OnEnemyHit -= HandleEnemyHit;
             EnemyEvents.OnApplyStatusEffect -= HandleStatusEffectApplied;
 
-            TurnEvents.OnEnemyTurnStart -= Attack;
+            TurnEvents.OnPlayerTurnStart -= TelegraphNextMove;
+            TurnEvents.OnEnemyTurnStart -= ExecuteTelegraphedMove;
             TurnEvents.OnEnemyTurnStart -= ProcessStatusEffects;
         }
         
-        private void ProcessStatusEffects() => _statusEffectController.ProcessEffects();
+        public void SetEnemyData(EnemyData data)
+        {
+            _animator.runtimeAnimatorController = data.animatorController;
+            HealthController.SetMaxHealth(data.maxHealth);
+            enemyAI.Initialize(data.moves, data.maxRepeatCount);
+            if (intentText != null) intentText.text = "";
+        }
+        
+        protected override void HandleDeathFromStatusEffect()
+        {
+            base.HandleDeathFromStatusEffect(); // plays death anim
+            EnemyEvents.EnemyDeath();
+        }
+
+        private void ProcessStatusEffects() => StatusEffectController.ProcessEffects();
 
         private void HandleEnemyHit(int damage)
         {
-            _enemyHealthController.TakeDamage(damage);
-            if (_enemyHealthController.IsAlive()) Invoke(nameof(TakeHitAnimEvent), takeHitAnimDelay);
+            HealthController.TakeDamage(damage);
+            if (HealthController.IsAlive()) Invoke(nameof(TakeHitAnimEvent), takeHitAnimDelay);
             else
             {
                 Invoke(nameof(DeathAnimEvent), deathAnimDelay);
@@ -64,20 +72,8 @@ namespace Entities.Enemy
             }
         }
 
-        private void Attack()
-        {
-            if (_statusEffectController.IsStunned)
-            {
-                print("Enemy is stunned, skipping turn");
-                return;
-            }
-
-            StartCoroutine(AttackMoveCo(attackMovement, () => PlayerEvents.PlayerHit(attackDamage)));
-        }
-        
         private void HandleStatusEffectApplied(StatusEffectType type, int damage, int duration)
         {
-            print($"Enemy received status effect: {type}, damage: {damage}, duration: {duration}");
             StatusEffect effect = type switch
             {
                 StatusEffectType.Poison   => new PoisonEffect(damage, duration),
@@ -87,15 +83,50 @@ namespace Entities.Enemy
                 _ => null
             };
 
-            if (effect != null) _statusEffectController.ApplyEffect(effect);
+            if (effect != null) StatusEffectController.ApplyEffect(effect);
         }
-        
-        private Color GetStatusColor()
+
+        private void TelegraphNextMove()
         {
-            if (_statusEffectController.IsBurned)    return new Color(1f, 0.3f, 0f);      // orange-red
-            if (_statusEffectController.IsPoisoned)  return new Color(0f, 0.5f, 0f);      // dark green
-            if (_statusEffectController.IsWeakened)  return new Color(0.6f, 0.6f, 0.6f); // grey
-            return Color.white; // no effect
+            if (StatusEffectController.IsStunned)
+            {
+                intentText.text = "Enemy is Stunned";
+                return;
+            }
+
+            EnemyMove move = enemyAI.PickNextMove();
+            intentText.text = "Enemy will: " + move.actionType;
+        }
+
+        private void ExecuteTelegraphedMove()
+        {
+            if (StatusEffectController.IsStunned)
+            {
+                print("Enemy is stunned, skipping turn");
+                return;
+            }
+
+            EnemyMove move = enemyAI.CurrentIntent;
+            if (move == null) return;
+
+            switch (move.actionType)
+            {
+                case EnemyActionType.Attack:
+                case EnemyActionType.Spell:
+                    StartCoroutine(AttackMoveCo(attackMovement,
+                        () => PlayerEvents.PlayerHit(move.damage, move.damageType)));
+                    break;
+                case EnemyActionType.Defend:
+                    HealthController.AddArmor(move.armorValue);
+                    break;
+                case EnemyActionType.Debuff:
+                    PlayerEvents.ApplyStatusEffect(move.statusEffectType, move.statusEffectDamage, move.statusEffectDuration);
+                    break;
+                case EnemyActionType.Heal: 
+                    Heal(move.healAmount); 
+                    EnemyEvents.EnemyHeal();
+                    break;
+            }
         }
     }
 }

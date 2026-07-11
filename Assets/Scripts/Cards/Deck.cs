@@ -60,14 +60,14 @@ namespace Cards
 
         private void DeckDrawVisuals()
         {
-            foreach (Transform discardedCard in transform)
-            {
-                Destroy(discardedCard.gameObject);
-            }
-        
+            foreach (Transform child in transform) Destroy(child.gameObject);
+
+            Sprite cardBackSprite = CosmeticsManager.Instance.GetSelectedCardBack().sprite;
+
             for (int i = 0; i < drawPile.Count; i++)
             {
                 GameObject newCardBack = Instantiate(cardBackPrefab, transform);
+                newCardBack.GetComponent<SpriteRenderer>().sprite = cardBackSprite;
                 newCardBack.transform.localPosition = new Vector3(0, i * -drawDeckOffset, 0);
             }
         }

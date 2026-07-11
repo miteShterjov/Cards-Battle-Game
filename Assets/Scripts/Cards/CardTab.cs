@@ -32,19 +32,10 @@ namespace Cards
         
         public CardData GetCardData() => _cardData;
 
-        private void OnMouseEnter()
-        {
-            cardBase.color = Color.yellowGreen;  
-        }
-    
-        private void OnMouseExit()
-        {
-            cardBase.color = _originalColor;
-        }
+        private void OnMouseEnter() => cardBase.color = Color.yellowGreen;  
+        
+        private void OnMouseExit() => cardBase.color = _originalColor;
 
-        private void OnMouseDown()
-        {
-            DeckEvents.RemoveCardFromDeck(_cardData);
-        }
+        private void OnMouseDown() => DeckEvents.RemoveCardFromDeck(_cardData);
     }
 }

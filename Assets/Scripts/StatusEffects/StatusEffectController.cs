@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Entities;
@@ -7,8 +8,11 @@ namespace StatusEffects
 {
     public class StatusEffectController : MonoBehaviour
     {
+        public event Action OnDeathFromStatusEffect;
+
         private readonly List<StatusEffect> _activeEffects = new List<StatusEffect>();
         private HealthController _healthController;
+        private bool _hasDied;
 
         private void Awake()
         {
@@ -18,7 +22,6 @@ namespace StatusEffects
 
         public void ApplyEffect(StatusEffect effect)
         {
-            // if effect of same type exists, refresh duration instead of stacking
             StatusEffect existing = _activeEffects.FirstOrDefault(e => e.EffectName == effect.EffectName);
             if (existing != null)
                 existing.TurnsRemaining = Mathf.Max(existing.TurnsRemaining, effect.TurnsRemaining);
@@ -30,8 +33,16 @@ namespace StatusEffects
         {
             foreach (StatusEffect effect in _activeEffects)
             {
+                if (_hasDied) break;
+
                 print($"{effect.EffectName} ticking, turns remaining: {effect.TurnsRemaining}");
                 effect.TickEffect(_healthController);
+
+                if (!_healthController.IsAlive() && !_hasDied)
+                {
+                    _hasDied = true;
+                    OnDeathFromStatusEffect?.Invoke();
+                }
             }
 
             _activeEffects.RemoveAll(e => e.IsExpired);

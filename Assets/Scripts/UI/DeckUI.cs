@@ -16,6 +16,7 @@ namespace UI
         private void OnEnable()
         {
             DeckEvents.OnDeckProcessed += BuildTheUI;
+            if (DeckManager.Instance != null) BuildTheUI();
         }
 
         private void OnDisable()

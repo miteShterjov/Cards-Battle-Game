@@ -9,7 +9,7 @@ namespace Cards
     public class CardCollection : MonoBehaviour
     {
         [Header("Card Collection Config")]
-        [SerializeField] private CardDatabase cardDatabase; // ← replaces allCards list
+        [SerializeField] private CardDatabase cardDatabase; 
         [SerializeField] private Transform[] cardSlots;
         [SerializeField] private GameObject cardPrefab;
 
@@ -21,7 +21,6 @@ namespace Cards
         private int _currentPage;
         private int CardsPerPage => cardSlots.Length;
         private int TotalPages => Mathf.CeilToInt((float)_ownedCards.Count / CardsPerPage);
-
         private readonly List<GameObject> _spawnedCards = new List<GameObject>();
 
         private void Start()
@@ -47,25 +46,21 @@ namespace Cards
             _ownedCards = cardDatabase.allCards
                 .Where(card => PlayerDataManager.Instance.OwnsCard(card.cardId))
                 .ToList();
-            Debug.Log($"Owned cards: {_ownedCards.Count} / Total cards: {cardDatabase.allCards.Count}");
+            // Debug.Log($"Owned cards: {_ownedCards.Count} / Total cards: {cardDatabase.allCards.Count}");
         }
 
         private void NextPage()
         {
-            if (_currentPage < TotalPages - 1)
-            {
-                _currentPage++;
-                LoadPage(_currentPage);
-            }
+            if (_currentPage >= TotalPages - 1) return;
+            _currentPage++;
+            LoadPage(_currentPage);
         }
 
         private void PrevPage()
         {
-            if (_currentPage > 0)
-            {
-                _currentPage--;
-                LoadPage(_currentPage);
-            }
+            if (_currentPage <= 0) return;
+            _currentPage--;
+            LoadPage(_currentPage);
         }
 
         private void LoadPage(int page)

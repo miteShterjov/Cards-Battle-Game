@@ -1,5 +1,6 @@
 using Entities.Enemy;
 using Managers;
+using StatusEffects;
 using UnityEngine;
 
 public class BattleSetup : MonoBehaviour
@@ -20,5 +21,7 @@ public class BattleSetup : MonoBehaviour
 
         if (backgroundRenderer != null && RunManager.Instance.CurrentBackground != null)
             backgroundRenderer.sprite = RunManager.Instance.CurrentBackground;
+        
+        enemyController.GetComponent<StatusEffectController>()?.ResetEffects();
     }
 }

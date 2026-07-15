@@ -41,7 +41,7 @@ namespace Cards
         #endif
     }
 
-    public enum CardType { Attack, Heal, Defend, Debuff }
+    public enum CardType { Attack, Spell, Heal, Defend, Debuff }
     public enum DamageType { Physical, Magical, Pure }
     public enum DefenseType { Armor, Resistance, Buff }
     public enum StatusEffectType { None, Burn, Poison, Stun, Weakness }

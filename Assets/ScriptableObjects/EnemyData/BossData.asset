@@ -15,6 +15,7 @@ MonoBehaviour:
   enemyName: Warlock
   maxHealth: 40
   animatorController: {fileID: 9100000, guid: ad4fa0e99137799e1a1bc0699d2bbc18, type: 2}
+  spawnOffset: {x: 0, y: 0, z: 0}
   moves:
   - moveName: Dark Strike
     actionType: 0
@@ -28,7 +29,7 @@ MonoBehaviour:
     statusEffectType: 0
     statusEffectDamage: 0
     statusEffectDuration: 0
-  - moveName: Shadow Blast
+  - moveName: Shadow Bolt
     actionType: 3
     weight: 20
     cooldownTurns: 1
@@ -44,7 +45,7 @@ MonoBehaviour:
     actionType: 2
     weight: 15
     cooldownTurns: 2
-    turnsUntilAvailable: 0
+    turnsUntilAvailable: 2
     damage: 8
     damageType: 1
     armorValue: 0

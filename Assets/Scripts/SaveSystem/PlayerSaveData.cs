@@ -23,12 +23,12 @@ namespace SaveSystem
         {
             return new PlayerSaveData
             {
-                gold = 100,
+                gold = 1000,
                 ownedCardIds = new List<string>(starterCardIds),
                 ownedSkinIds = new List<string>(),
                 currentDeckCardIds = new List<string>(starterCardIds),
-                wins = 0,
-                losses = 0,
+                wins = 21,
+                losses = 4,
                 lastLoginDate = "",
                 selectedCardBackId = "",
                 runActive = false,

@@ -88,5 +88,8 @@ namespace Entities
             armorText.text = currentArmor.ToString();
             shieldVisual.SetActive(currentArmor > 0);
         }
+        
+        [ContextMenu("Set Enemy Health to Low")]
+        private void SetEnemyHealthAlmostZero() => currentHealth = 1;
     }
 }

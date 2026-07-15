@@ -34,6 +34,9 @@ namespace Managers
         private int _actionsRemaining;
         private GameObject[] _actionPoints;
         private bool _isTransitioning;
+        
+        private Coroutine _turnCoroutine;
+
 
         private void Start()
         {
@@ -83,9 +86,11 @@ namespace Managers
 
         private void EndPlayerTurn()
         {
+            if (_isTransitioning) return;
             _isTransitioning = true;
             TurnEvents.PlayerTurnEnds();
-            StartCoroutine(WaitBetweenTurns());
+            if (_turnCoroutine != null) StopCoroutine(_turnCoroutine);
+            _turnCoroutine = StartCoroutine(WaitBetweenTurns());
         }
 
         private void StartEnemyTurn()
@@ -97,7 +102,8 @@ namespace Managers
         private void EndEnemyTurn()
         {
             TurnEvents.EnemyTurnEnds();
-            StartCoroutine(WaitBetweenTurns());
+            if (_turnCoroutine != null) StopCoroutine(_turnCoroutine);
+            _turnCoroutine = StartCoroutine(WaitBetweenTurns());
         }
 
         private IEnumerator WaitBetweenTurns()
@@ -116,16 +122,19 @@ namespace Managers
 
         private void CardPlayed(CardData cardData) => ConsumeAction(cardData.actionCost);
         
-        private void DrawSucceeded() => ConsumeAction(drawCardCost);
+        private void DrawSucceeded()
+        {
+            if (_isTransitioning) return; 
+            ConsumeAction(drawCardCost);
+        }
 
         private void ConsumeAction(int amount)
         {
+            if (_isTransitioning) return;
             _actionsRemaining -= amount;
             UpdateActionPointsUI();
             if (_actionsRemaining <= 0)
-            {
                 EndPlayerTurn();
-            }
         }
 
         private void EnemyTurnStarts()
@@ -135,7 +144,11 @@ namespace Managers
             EndEnemyTurn();
         }
 
-        private void ReshuffleRequested() => ConsumeAction(reshuffleCost);
+        private void ReshuffleRequested()
+        {
+            if (_isTransitioning) return;
+            ConsumeAction(reshuffleCost);
+        }
         
         private void CreateActionPointUI()
         {

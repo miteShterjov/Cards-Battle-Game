@@ -15,6 +15,7 @@ MonoBehaviour:
   enemyName: Goblin
   maxHealth: 28
   animatorController: {fileID: 22100000, guid: 81058c7ebebae3439b9e5bc6062f857f, type: 2}
+  spawnOffset: {x: 0, y: -1.18, z: 0}
   moves:
   - moveName: Stab
     actionType: 0
@@ -32,7 +33,7 @@ MonoBehaviour:
     actionType: 2
     weight: 35
     cooldownTurns: 2
-    turnsUntilAvailable: 0
+    turnsUntilAvailable: 2
     damage: 0
     damageType: 0
     armorValue: 0

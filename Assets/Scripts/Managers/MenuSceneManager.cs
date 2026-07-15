@@ -16,7 +16,7 @@ namespace Managers
             "Overworld@4"
         };
         
-        public void StartGame() => SceneManager.LoadScene(4);
+        public void StartGame() => RunManager.Instance.StartRun();
         public void DeckBuilder() => SceneManager.LoadScene(1);
         public void GameStore() => SceneManager.LoadScene(3);
         public void MainMenu() => SceneManager.LoadScene(0);

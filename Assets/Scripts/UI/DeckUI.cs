@@ -3,6 +3,7 @@ using Cards;
 using Events;
 using Managers;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace UI
 {
@@ -23,6 +24,8 @@ namespace UI
         {
             DeckEvents.OnDeckProcessed -= BuildTheUI;
         }
+        
+        public void OnGoBackButtonClicked() => SceneManager.LoadScene("MainMenu");
 
         private void BuildTheUI()
         {

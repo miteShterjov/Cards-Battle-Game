@@ -88,7 +88,11 @@ namespace SaveSystem
         {
             List<string> starterCardIds = new List<string>();
             foreach (CardData card in starterDeck.cards)
+            {
+                if (card == null) continue; // ← skip null entries
+                if (string.IsNullOrEmpty(card.cardId)) continue; // ← skip cards with no ID
                 starterCardIds.Add(card.cardId);
+            }
 
             CurrentData = PlayerSaveData.CreateDefault(starterCardIds);
             SaveManager.Save(CurrentData);

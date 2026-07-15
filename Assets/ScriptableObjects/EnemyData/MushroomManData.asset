@@ -15,6 +15,7 @@ MonoBehaviour:
   enemyName: MushroomMan
   maxHealth: 24
   animatorController: {fileID: 22100000, guid: 178121122e2ec4aaeb158564cecb3368, type: 2}
+  spawnOffset: {x: -0.5, y: -1.35, z: 0}
   moves:
   - moveName: Spore Cloud
     actionType: 2
@@ -44,7 +45,7 @@ MonoBehaviour:
     actionType: 4
     weight: 25
     cooldownTurns: 2
-    turnsUntilAvailable: 0
+    turnsUntilAvailable: 3
     damage: 0
     damageType: 0
     armorValue: 0

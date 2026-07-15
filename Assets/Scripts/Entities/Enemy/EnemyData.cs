@@ -10,6 +10,9 @@ namespace Entities.Enemy
         public string enemyName;
         public int maxHealth;
         public RuntimeAnimatorController animatorController;
+        
+        [Header("Spawn Config")]
+        public Vector3 spawnOffset;
 
         [Header("AI Config")]
         public List<EnemyMove> moves;

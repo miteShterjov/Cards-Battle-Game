@@ -1,5 +1,6 @@
 using Cards;
 using Events;
+using Misc;
 using StatusEffects;
 using TMPro;
 using UnityEngine;
@@ -16,14 +17,10 @@ namespace Entities.Enemy
         [Header("Telegraph Moves")]
         [SerializeField] private EnemyAI enemyAI;
         [SerializeField] private TextMeshProUGUI intentText;
-
-        private Animator _animator;
-
-        protected override void Awake()
-        {
-            base.Awake();
-            _animator = GetComponentInChildren<Animator>();
-        }
+        
+        [Header("Spell Config")]
+        [SerializeField] private GameObject spellVisualPrefab;
+        [SerializeField] private Transform spellSpawnPoint;
 
         private void OnEnable()
         {
@@ -50,6 +47,8 @@ namespace Entities.Enemy
             _animator.runtimeAnimatorController = data.animatorController;
             HealthController.SetMaxHealth(data.maxHealth);
             enemyAI.Initialize(data.moves, data.maxRepeatCount);
+            StatusEffectController.ResetEffects();
+            transform.position = new Vector3(transform.position.x, data.spawnOffset.y, transform.position.z);
             if (intentText != null) intentText.text = "";
         }
         
@@ -88,6 +87,8 @@ namespace Entities.Enemy
 
         private void TelegraphNextMove()
         {
+            if (!HealthController.IsAlive()) return;
+            
             if (StatusEffectController.IsStunned)
             {
                 intentText.text = "Enemy is Stunned";
@@ -100,6 +101,8 @@ namespace Entities.Enemy
 
         private void ExecuteTelegraphedMove()
         {
+            if (!HealthController.IsAlive()) return;
+            
             if (StatusEffectController.IsStunned)
             {
                 print("Enemy is stunned, skipping turn");
@@ -112,9 +115,11 @@ namespace Entities.Enemy
             switch (move.actionType)
             {
                 case EnemyActionType.Attack:
-                case EnemyActionType.Spell:
                     StartCoroutine(AttackMoveCo(attackMovement,
                         () => PlayerEvents.PlayerHit(move.damage, move.damageType)));
+                    break;
+                case EnemyActionType.Spell:
+                    CastEnemySpell(move);
                     break;
                 case EnemyActionType.Defend:
                     HealthController.AddArmor(move.armorValue);
@@ -126,6 +131,17 @@ namespace Entities.Enemy
                     Heal(move.healAmount); 
                     EnemyEvents.EnemyHeal();
                     break;
+            }
+        }
+        
+        private void CastEnemySpell(EnemyMove move)
+        {
+            if (spellVisualPrefab != null && spellSpawnPoint != null)
+            {
+                GameObject spell = Instantiate(spellVisualPrefab, spellSpawnPoint.position, Quaternion.identity);
+                LockSpell lockSpell = spell.GetComponent<LockSpell>();
+                lockSpell.caster = "Enemy";
+                lockSpell.SetDamage(move.damage);
             }
         }
     }

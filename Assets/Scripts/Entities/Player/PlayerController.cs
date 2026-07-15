@@ -1,6 +1,7 @@
 using System;
 using Cards;
 using Events;
+using Misc;
 using StatusEffects;
 using UnityEngine;
 
@@ -9,8 +10,10 @@ namespace Entities.Player
     public class PlayerController : CombatantController
     {
         [Header("Enemy Reference")]
-        // will need rework when implementing multiple enemies logic later on
         [SerializeField] private StatusEffectController enemyStatusEffectController;
+        [Header("Spell Config")]
+        [SerializeField] private GameObject spellVisualPrefab;
+        [SerializeField] private Transform spellSpawnPoint;
 
         private void OnEnable()
         {
@@ -44,6 +47,9 @@ namespace Entities.Player
                     int damage = Mathf.RoundToInt(cardData.attackPower * enemyStatusEffectController.WeaknessMultiplier);
                     StartCoroutine(AttackMoveCo(new Vector3(4f, 0, 0), 
                         () => EnemyEvents.EnemyHit(damage)));
+                    break;
+                case CardType.Spell:
+                    CastSpell(cardData);
                     break;
                 case CardType.Heal:
                     Heal(cardData.healPower); 
@@ -93,6 +99,13 @@ namespace Entities.Player
             };
 
             if (effect != null) StatusEffectController.ApplyEffect(effect);
+        }
+        private void CastSpell(CardData cardData)
+        {
+            GameObject spell = Instantiate(spellVisualPrefab, spellSpawnPoint.position, Quaternion.identity);
+            LockSpell lockSpell = spell.GetComponent<LockSpell>();
+            lockSpell.caster = "Player";
+            lockSpell.spellCard = cardData;
         }
     }
 }

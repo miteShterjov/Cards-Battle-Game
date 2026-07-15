@@ -15,6 +15,7 @@ MonoBehaviour:
   enemyName: Skeleton
   maxHealth: 28
   animatorController: {fileID: 22100000, guid: 18b750b6ec1f079ef878e74ab4a82f84, type: 2}
+  spawnOffset: {x: -0.2, y: -1.12, z: 0}
   moves:
   - moveName: Bone Slash
     actionType: 0
@@ -44,7 +45,7 @@ MonoBehaviour:
     actionType: 0
     weight: 15
     cooldownTurns: 3
-    turnsUntilAvailable: 0
+    turnsUntilAvailable: 3
     damage: 12
     damageType: 0
     armorValue: 0

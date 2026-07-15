@@ -47,6 +47,12 @@ namespace StatusEffects
 
             _activeEffects.RemoveAll(e => e.IsExpired);
         }
+        
+        public void ResetEffects()
+        {
+            _activeEffects.Clear();
+            _hasDied = false;
+        }
 
         public bool IsStunned => _activeEffects.Any(e => e is StunEffect);
         public bool IsPoisoned => _activeEffects.Any(e => e is PoisonEffect);

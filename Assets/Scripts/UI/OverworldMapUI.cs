@@ -3,6 +3,7 @@ using Entities.Enemy;
 using Managers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace UI
@@ -28,6 +29,9 @@ namespace UI
             RefreshMap();
         }
 
+        public void OnContinueClicked() => RunManager.Instance.ContinueRun();
+        public void OnGoBackButtonClicked() => SceneManager.LoadScene("MainMenu");
+        
         private void RefreshMap()
         {
             if (RunManager.Instance == null)
@@ -59,11 +63,6 @@ namespace UI
             EnemyData nextEnemy = RunManager.Instance.CurrentEnemy;
             if (currentEnemyText != null)
                 currentEnemyText.text = "Next: " + nextEnemy.enemyName;
-        }
-
-        public void OnContinueClicked()
-        {
-            RunManager.Instance.ContinueRun();
         }
     }
 }

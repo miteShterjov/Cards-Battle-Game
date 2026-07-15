@@ -69,6 +69,8 @@ namespace Managers
 
         private void AddCard(CardData cardData)
         {
+            Debug.Log($"AddCard called — card: {cardData?.cardName}, deckCount: {currentDeck.Count}, maxSize: {maxDeckSize}, ownsCard: {PlayerDataManager.Instance.OwnsCard(cardData.cardId)}");
+    
             if (currentDeck.Count >= maxDeckSize) return;
             if (!PlayerDataManager.Instance.OwnsCard(cardData.cardId)) return;
 

@@ -12,11 +12,16 @@ namespace Entities
         [Header("Heal Visual Config")]
         [SerializeField] private GameObject healVisualPrefab;
         [SerializeField] private float healVisualScale = 0.6f;
+        
+        [Header("Spell Casting Visual Config")]
+        [SerializeField] private GameObject boltSpellVisualPrefab;
+        [SerializeField] private GameObject waveSpellVisualPrefab;
+        
 
         protected StatusEffectController StatusEffectController;
         protected HealthController HealthController;
         
-        private Animator _animator;
+        protected Animator _animator;
         private SpriteRenderer _spriteRenderer;
         private Vector3 _originalPosition;
 

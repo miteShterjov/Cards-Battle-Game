@@ -76,6 +76,9 @@ namespace Cards
                 case CardType.Attack:
                     sp.color = new Color(1f, 0.1008771f, 0.004716992f);
                     break;
+                case CardType.Spell:
+                    sp.color = new Color(0.5283019f, 0, 0.2908851f);
+                    break;
                 case CardType.Heal:
                     sp.color = new Color(0.1285843f, 0.764151f, 0f);
                     break;

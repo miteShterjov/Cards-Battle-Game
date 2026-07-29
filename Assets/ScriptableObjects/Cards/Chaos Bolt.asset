@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Chaos Bolt
   m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
   cardId: chaos_bolt
-  type: 0
+  type: 1
   cardName: Chaos Bolt
   description: A bolt of fel magic that ignores armor.
-  actionCost: 5
-  goldCost: 20
+  actionCost: 7
+  goldCost: 25
   illustration: {fileID: 21300000, guid: eb7438bc8f200b6d19ce010dfed48e17, type: 3}
   damageType: 1
   attackPower: 10

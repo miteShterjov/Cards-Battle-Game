@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Venom Strike
   m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
   cardId: venom_strike
-  type: 3
+  type: 4
   cardName: Venom Strike
   description: A poisoned strike that lingers.
   actionCost: 2

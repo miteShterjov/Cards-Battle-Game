@@ -10,19 +10,18 @@ namespace Managers
     {
         [Header("Run Config")]
         [SerializeField] private List<EnemyData> enemySequence;
-        [SerializeField] private List<Sprite> nodeBackgrounds;
+        [SerializeField] private List<GameObject> nodeBackgrounds;
         [SerializeField] private string battleSceneName = "GameScene";
         [SerializeField] private string overworldSceneName = "Overworld";
         [SerializeField] private string mainMenuSceneName = "MainMenu";
+        [SerializeField] private string endCreditsSceneName = "EndCredits";
 
         public int CurrentNodeIndex => PlayerDataManager.Instance.CurrentData.currentNodeIndex;
         public bool IsRunActive => PlayerDataManager.Instance.CurrentData.runActive;
         public bool IsLastNode => CurrentNodeIndex >= enemySequence.Count - 1;
         public int TotalNodes => enemySequence.Count;
         public EnemyData CurrentEnemy => enemySequence[CurrentNodeIndex];
-        public Sprite CurrentBackground => nodeBackgrounds.Count > CurrentNodeIndex
-            ? nodeBackgrounds[CurrentNodeIndex]
-            : null;
+        public GameObject CurrentBackground => nodeBackgrounds[Random.Range(0, nodeBackgrounds.Count)];
 
         protected override void Awake()
         {
@@ -35,12 +34,12 @@ namespace Managers
             PlayerDataManager.Instance.CurrentData.currentNodeIndex = 0;
             PlayerDataManager.Instance.CurrentData.runActive = true;
             PlayerDataManager.Instance.SaveGame();
-            SceneManager.LoadScene(overworldSceneName);
+            SceneFader.Instance.FadeToScene(overworldSceneName);
         }
 
         public void ContinueRun()
         {
-            LoadBattleScene();
+            SceneFader.Instance.FadeToScene(battleSceneName);
         }
 
         public void NodeCompleted()
@@ -50,10 +49,9 @@ namespace Managers
                 RunCompleted();
                 return;
             }
-
             PlayerDataManager.Instance.CurrentData.currentNodeIndex++;
             PlayerDataManager.Instance.SaveGame();
-            SceneManager.LoadScene(overworldSceneName);
+            SceneFader.Instance.FadeToScene(overworldSceneName);
         }
 
         public void RunCompleted()
@@ -62,7 +60,7 @@ namespace Managers
             PlayerDataManager.Instance.CurrentData.currentNodeIndex = 0;
             PlayerDataManager.Instance.AddGold(100);
             PlayerDataManager.Instance.SaveGame();
-            SceneManager.LoadScene(mainMenuSceneName);
+            SceneFader.Instance.FadeToScene(endCreditsSceneName);
         }
 
         public void RunFailed()
@@ -70,12 +68,12 @@ namespace Managers
             PlayerDataManager.Instance.CurrentData.runActive = false;
             PlayerDataManager.Instance.CurrentData.currentNodeIndex = 0;
             PlayerDataManager.Instance.SaveGame();
-            SceneManager.LoadScene(mainMenuSceneName);
+            SceneFader.Instance.FadeToScene(mainMenuSceneName);
         }
 
         private void LoadBattleScene()
         {
-            SceneManager.LoadScene(battleSceneName);
+            SceneFader.Instance.FadeToScene(battleSceneName);
         }
     }
 }

@@ -179,7 +179,11 @@ MonoBehaviour:
   attackMoveDuration: 0.5
   healVisualPrefab: {fileID: 8109511765421972430, guid: bc724d9985a767e3fa5201dc98bfc236, type: 3}
   healVisualScale: 0.6
+  boltSpellVisualPrefab: {fileID: 0}
+  waveSpellVisualPrefab: {fileID: 0}
   enemyStatusEffectController: {fileID: 0}
+  spellVisualPrefab: {fileID: 0}
+  spellSpawnPoint: {fileID: 0}
 --- !u!114 &8602032341502915188
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,7 +196,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0321c5cb0da86a9c3b942d3cbf17f456, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthController
-  maxHealth: 210
+  maxHealth: 40
   healthText: {fileID: 4756300598645825877}
   healthSlider: {fileID: 1117434273728536733}
   armorText: {fileID: 4156275853763659555}

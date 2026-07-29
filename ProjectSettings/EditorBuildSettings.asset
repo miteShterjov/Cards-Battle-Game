@@ -20,5 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Overworld.unity
     guid: c1ec4353d185438c88be9a8ed12aba0d
+  - enabled: 1
+    path: Assets/Scenes/EndCredits.unity
+    guid: 74937f3348f8ee22189525b7723a4af6
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}

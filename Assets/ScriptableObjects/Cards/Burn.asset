@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Burn
   m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
   cardId: burn
-  type: 3
+  type: 4
   cardName: Burn
   description: 'Magical damage over time on target. '
   actionCost: 2

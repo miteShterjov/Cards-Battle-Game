@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Superior Shield
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardId: superior_shield
-  type: 2
+  type: 3
   cardName: Superior Shield
   description: Adds 7 armor points.
   actionCost: 3

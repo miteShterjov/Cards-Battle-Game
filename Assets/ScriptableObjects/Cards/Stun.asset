@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stun
   m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
   cardId: stun
-  type: 3
+  type: 4
   cardName: Stun
   description: Stuned for 1 turn.
   actionCost: 2

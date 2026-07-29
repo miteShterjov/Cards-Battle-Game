@@ -18,6 +18,7 @@ namespace Cards
         private void Start()
         {
             drawPile = DeckManager.Instance.GetDeck();
+            ShuffleCards();
             DeckDrawVisuals();
         }
 

@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Wildfire
   m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
   cardId: wildfire
-  type: 3
+  type: 4
   cardName: Wildfire
   description: A raging fire that burns for a long duration.
   actionCost: 7
   goldCost: 35
   illustration: {fileID: -2323132073022249725, guid: 27e694bc38e16bac9baafb83e284010d, type: 3}
-  damageType: 0
+  damageType: 1
   attackPower: 0
   healPower: 0
   defenseType: 0

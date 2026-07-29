@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Basic Shield
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardId: basic_shield
-  type: 2
+  type: 3
   cardName: Basic Shield
   description: 'Adds 3 armor points. '
   actionCost: 1

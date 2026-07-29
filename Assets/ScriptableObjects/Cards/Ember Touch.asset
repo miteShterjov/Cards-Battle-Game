@@ -13,13 +13,13 @@ MonoBehaviour:
   m_Name: Ember Touch
   m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
   cardId: ember_touch
-  type: 3
+  type: 4
   cardName: Ember Touch
   description: Sets the target ablaze, bypassing armor.
   actionCost: 2
   goldCost: 20
   illustration: {fileID: -1259408508766424310, guid: b75d8d3111da57468b4e6f684a1e4654, type: 3}
-  damageType: 0
+  damageType: 1
   attackPower: 0
   healPower: 0
   defenseType: 0

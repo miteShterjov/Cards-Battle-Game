@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Managers
 {
@@ -11,7 +13,18 @@ namespace Managers
         private void Start()
         {
             twinkleEffect.Play();
-            fogEffect.Play();
+            ManageFogEffectBasedOnScene();
+        }
+
+        private void OnEnable()
+        {
+            ManageFogEffectBasedOnScene();
+        }
+
+        private void ManageFogEffectBasedOnScene()
+        {
+            if (SceneManager.GetActiveScene().buildIndex == 0) fogEffect.Play();
+            else fogEffect.Stop();
         }
     }
 }

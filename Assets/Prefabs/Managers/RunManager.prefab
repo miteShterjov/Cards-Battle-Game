@@ -51,8 +51,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 913056660664fde1283d901f0710ea0f, type: 2}
   - {fileID: 11400000, guid: 4cb407eb1a68a3b828400110730a2f15, type: 2}
   nodeBackgrounds:
-  - {fileID: 21300000, guid: f5f0c517bf5373291bd7a4b7e3d271a0, type: 3}
-  - {fileID: -3513187558023819631, guid: 2d8a8e1ed9166b87bbb747fdd9322353, type: 3}
+  - {fileID: 3917180583450998925, guid: 92f9eb53fbdd7fb5ba8f2af2a1182e83, type: 3}
+  - {fileID: 3249356899404859997, guid: bad4c01d28830e41e8e01b73c1321cd0, type: 3}
+  - {fileID: 7845659745862324871, guid: cd5566b932592480784431cc5706c98d, type: 3}
+  - {fileID: 5957107245426762823, guid: 8978d2c2ba8f4d05a9f7424a7645452d, type: 3}
   battleSceneName: GameScene
   overworldSceneName: Overworld
   mainMenuSceneName: MainMenu
+  endCreditsSceneName: EndCredits

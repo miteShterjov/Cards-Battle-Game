@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Crippling Blow
   m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
   cardId: crippling_blow
-  type: 3
+  type: 4
   cardName: Crippling Blow
   description: Weakens the target's offense.
   actionCost: 2

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Superior Heal
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardId: superior_heal
-  type: 1
+  type: 2
   cardName: Superior Heal
   description: Heal for 7 points
   actionCost: 3

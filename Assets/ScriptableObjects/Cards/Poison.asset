@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Poison
   m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
   cardId: poison
-  type: 3
+  type: 4
   cardName: Poison
   description: 'Physical damage over time on target. '
   actionCost: 2

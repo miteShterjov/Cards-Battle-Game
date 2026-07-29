@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Weakness
   m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
   cardId: weakness
-  type: 3
+  type: 4
   cardName: Weakness
   description: 'Lowers the targets attack power. '
   actionCost: 2

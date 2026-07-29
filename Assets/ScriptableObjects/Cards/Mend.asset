@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mend
   m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
   cardId: mend
-  type: 1
+  type: 2
   cardName: Mend
   description: A minor restorative effect.
   actionCost: 1

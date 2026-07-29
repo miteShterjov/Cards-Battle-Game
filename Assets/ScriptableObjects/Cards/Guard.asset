@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Guard
   m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
   cardId: guard
-  type: 2
+  type: 3
   cardName: Guard
   description: Raise your guard.
   actionCost: 2

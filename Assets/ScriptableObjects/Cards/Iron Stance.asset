@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Iron Stance
   m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
   cardId: iron_stance
-  type: 2
+  type: 3
   cardName: Iron Stance
   description: A steady defensive posture.
   actionCost: 2

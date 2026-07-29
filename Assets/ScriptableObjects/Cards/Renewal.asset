@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Renewal
   m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
   cardId: renewal
-  type: 1
+  type: 2
   cardName: Renewal
   description: A powerful restorative surge.
   actionCost: 7

@@ -45,14 +45,17 @@ namespace Misc
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            if (!other.gameObject.CompareTag("Player") && !other.gameObject.CompareTag("Enemy")) return;
-            
-            Instantiate(onHitEffectPrefab, transform.position, Quaternion.identity);
-            
-            if (spellCard) other.GetComponent<HealthController>().TakeDamage(spellCard.attackPower, DamageType.Magical);
-            else if (!spellCard) other.GetComponent<HealthController>().TakeDamage(_damage, DamageType.Magical);
-            
-            Destroy(gameObject, destroyDelay);
+            Debug.Log($"Spell hit: {other.gameObject.name} tag: {other.gameObject.tag}!");
+            if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Enemy"))
+            {
+                Debug.Log($"Spell hit: {other.gameObject.name} tag: {other.gameObject.tag}!!");
+                Instantiate(onHitEffectPrefab, transform.position, Quaternion.identity);
+
+                int damage = spellCard ? spellCard.attackPower : _damage;
+                other.GetComponent<HealthController>()?.TakeDamage(damage, DamageType.Magical);
+
+                Destroy(gameObject, destroyDelay);
+            }
         }
     }
 }

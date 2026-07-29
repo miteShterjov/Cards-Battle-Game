@@ -305,6 +305,7 @@ RectTransform:
   m_Children:
   - {fileID: 1650886488}
   - {fileID: 1132664322}
+  - {fileID: 1260180083}
   - {fileID: 772483781}
   m_Father: {fileID: 1545049592}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -842,6 +843,142 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+--- !u!1001 &1260180081
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 572615254}
+    m_Modifications:
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1920
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 1080
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 152
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 540
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3980768024519429335, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+      propertyPath: m_Name
+      value: MyDeckPaginationUI
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+--- !u!114 &1260180082 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3282074090118212713, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+  m_PrefabInstance: {fileID: 1260180081}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+--- !u!224 &1260180083 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3870424448445280874, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+  m_PrefabInstance: {fileID: 1260180081}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1260180084 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3940441899510708524, guid: 0dbbdd931eedfb7659297b3f555401f0, type: 3}
+  m_PrefabInstance: {fileID: 1260180081}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1 &1269114147
 GameObject:
   m_ObjectHideFlags: 0
@@ -1178,6 +1315,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DefaultNamespace.DeckUI
   cardTabPrefab: {fileID: 5473531299349832018, guid: d90a76ff928c8ef46bdaf9a76e011b4d, type: 3}
+  nextPageButton: {fileID: 1260180084}
+  prevPageButton: {fileID: 1260180082}
+  cardsPerPage: 9
 --- !u!4 &1545049592
 Transform:
   m_ObjectHideFlags: 0
@@ -1620,7 +1760,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Systems.DeckManager
   currentDeck: []
-  maxDeckSize: 9
+  maxDeckSize: 18
   starterDeck: {fileID: 11400000, guid: 97cb09ccde00607a38a44583390f2fc8, type: 2}
   cardDatabase: {fileID: 11400000, guid: ae4dbd9524053b059870b2811d45a171, type: 2}
 --- !u!4 &2015820237

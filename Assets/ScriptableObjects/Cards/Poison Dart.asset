@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Poison Dart
   m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
   cardId: poison_dart
-  type: 3
+  type: 4
   cardName: Poison Dart
   description: Inflicts poison, dealing damage over time.
   actionCost: 3

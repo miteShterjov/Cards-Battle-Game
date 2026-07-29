@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bulwark
   m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
   cardId: bulwark
-  type: 2
+  type: 3
   cardName: Bulwark
   description: A heavy defensive stance.
   actionCost: 7

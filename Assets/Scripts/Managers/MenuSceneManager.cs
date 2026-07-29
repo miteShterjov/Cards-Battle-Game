@@ -17,9 +17,9 @@ namespace Managers
         };
         
         public void StartGame() => RunManager.Instance.StartRun();
-        public void DeckBuilder() => SceneManager.LoadScene(1);
-        public void GameStore() => SceneManager.LoadScene(3);
-        public void MainMenu() => SceneManager.LoadScene(0);
+        public void DeckBuilder() => SceneFader.Instance.FadeToScene("DeckBuilder");
+        public void GameStore() => SceneFader.Instance.FadeToScene("GameStore");
+        public void MainMenu() => SceneFader.Instance.FadeToScene("MainMenu");
 
         public void QuitGame()
         {

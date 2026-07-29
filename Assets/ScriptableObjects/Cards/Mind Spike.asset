@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mind Spike
   m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
   cardId: mind_spike
-  type: 3
+  type: 4
   cardName: Mind Spike
   description: A prolonged weakening effect.
   actionCost: 2

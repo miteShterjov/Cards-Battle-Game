@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Basic Heal
   m_EditorClassIdentifier: Assembly-CSharp::CardData
   cardId: basic_heal
-  type: 1
+  type: 2
   cardName: Basic Heal
   description: Heal for 3 points
   actionCost: 1

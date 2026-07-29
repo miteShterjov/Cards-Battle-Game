@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Second Wind
   m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
   cardId: second_wind
-  type: 1
+  type: 2
   cardName: Second Wind
   description: Catch your breath and recover.
   actionCost: 5

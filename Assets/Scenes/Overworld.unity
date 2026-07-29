@@ -3694,6 +3694,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 479421761238456626, guid: 06d54db4c516d1a05b482789dc6727a2, type: 3}
   m_PrefabInstance: {fileID: 1925937669}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1925937671 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 493105705965152423, guid: 06d54db4c516d1a05b482789dc6727a2, type: 3}
+  m_PrefabInstance: {fileID: 1925937669}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &1976783249
 GameObject:
   m_ObjectHideFlags: 0
@@ -5664,7 +5675,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseUI
   pauseMenu: {fileID: 3164252611996026638}
-  helpHintsText: {fileID: 0}
+  helpHintsText: {fileID: 1925937671}
 --- !u!222 &8589144582495626863
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -1,27 +1,51 @@
 using Entities.Enemy;
-using Managers;
 using StatusEffects;
 using UnityEngine;
 
-public class BattleSetup : MonoBehaviour
+namespace Managers
 {
-    [SerializeField] private EnemyController enemyController;
-    [SerializeField] private SpriteRenderer backgroundRenderer;
-
-    private void Start()
+    public class BattleSetup : MonoBehaviour
     {
-        Debug.Log($"BattleSetup — RunManager null: {RunManager.Instance == null}");
-        if (RunManager.Instance == null) return;
-    
-        Debug.Log($"IsRunActive: {RunManager.Instance.IsRunActive}, Node: {RunManager.Instance.CurrentNodeIndex}, Enemy: {RunManager.Instance.CurrentEnemy?.enemyName}");
-    
-        if (!RunManager.Instance.IsRunActive) return;
-
-        enemyController.SetEnemyData(RunManager.Instance.CurrentEnemy);
-
-        if (backgroundRenderer != null && RunManager.Instance.CurrentBackground != null)
-            backgroundRenderer.sprite = RunManager.Instance.CurrentBackground;
+        [SerializeField] private EnemyController enemyController;
+        [SerializeField] private GameObject backgroundRenderer;
         
-        enemyController.GetComponent<StatusEffectController>()?.ResetEffects();
+
+        private void Start()
+        {
+            Debug.Log($"BattleSetup — RunManager null: {RunManager.Instance == null}");
+            if (RunManager.Instance == null) return;
+    
+            Debug.Log($"IsRunActive: {RunManager.Instance.IsRunActive}, Node: {RunManager.Instance.CurrentNodeIndex}, Enemy: {RunManager.Instance.CurrentEnemy?.enemyName}");
+    
+            if (!RunManager.Instance.IsRunActive) return;
+
+            enemyController.SetEnemyData(RunManager.Instance.CurrentEnemy);
+
+            GenerateSceneBackground();
+
+            enemyController.GetComponent<StatusEffectController>()?.ResetEffects();
+        }
+
+        private void GenerateSceneBackground()
+        {
+            if (backgroundRenderer == null || RunManager.Instance.CurrentBackground == null) return;
+            
+            GameObject backgroundPrefab = RunManager.Instance.CurrentBackground;
+
+            GameObject imageBackground = Instantiate(backgroundPrefab, backgroundRenderer.transform);
+            imageBackground.transform.position = GetTransformPosition(backgroundPrefab);
+        }
+
+        private static Vector3 GetTransformPosition(GameObject backgroundPrefab)
+        {
+            return backgroundPrefab.name switch
+            {
+                "cellar_background" => new Vector3(0, 0, 0),
+                "forest_background" => new Vector3(1.2f, 4.8f, 0),
+                "graveyard_background" => new Vector3(0.18f, 0.2f, 0),
+                "tavern_background" => new Vector3(0.4f, 0.6f, 0),
+                _ => Vector3.zero
+            };
+        }
     }
 }

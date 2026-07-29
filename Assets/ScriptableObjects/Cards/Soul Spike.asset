@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Soul Spike
   m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
   cardId: soul_spike
-  type: 0
+  type: 1
   cardName: Soul Spike
   description: A devastating magical strike. Bypasses armor.
   actionCost: 7

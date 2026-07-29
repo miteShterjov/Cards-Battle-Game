@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Toxic Cloud
   m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
   cardId: toxic_cloud
-  type: 3
+  type: 4
   cardName: Toxic Cloud
   description: A cloud of toxic gas.
   actionCost: 2

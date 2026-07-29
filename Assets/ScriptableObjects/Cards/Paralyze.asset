@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Paralyze
   m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
   cardId: paralyze
-  type: 3
+  type: 4
   cardName: Paralyze
   description: Stuns the target, forcing them to skip their next turn.
   actionCost: 3

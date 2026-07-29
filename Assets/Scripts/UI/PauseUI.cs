@@ -1,3 +1,4 @@
+using Managers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -33,9 +34,9 @@ namespace UI
 
         private static void ResumeGame() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         public void MainMenu() => SceneManager.LoadScene(0);
-        public void DeckBuilder() => SceneManager.LoadScene(1);
-        public void GameStore() => SceneManager.LoadScene(4);
-        public void NewGame() => SceneManager.LoadScene(2);
+        public void DeckBuilder() => SceneFader.Instance.FadeToScene("DeckBuilder");
+        public void GameStore() => SceneFader.Instance.FadeToScene("GameStore");
+        // public void NewGame() => SceneManager.LoadScene(2);
 
         public void QuitGame()
         {

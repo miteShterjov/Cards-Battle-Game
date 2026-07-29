@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Numbing Strike
   m_EditorClassIdentifier: Assembly-CSharp::Cards.CardData
   cardId: numbing_strike
-  type: 3
+  type: 4
   cardName: Numbing Strike
   description: A quick strike that briefly weakens the target.
   actionCost: 1

@@ -1,6 +1,9 @@
 using System;
 using Cards;
 using Entities;
+using Entities.Enemy;
+using Entities.Player;
+using Events;
 using UnityEngine;
 
 namespace Misc
@@ -45,17 +48,33 @@ namespace Misc
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log($"Spell hit: {other.gameObject.name} tag: {other.gameObject.tag}!");
-            if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Enemy"))
+            if (!other.gameObject.CompareTag("Player") && !other.gameObject.CompareTag("Enemy")) return;
+
+            Instantiate(onHitEffectPrefab, transform.position, Quaternion.identity);
+
+            int damage = spellCard ? spellCard.attackPower : _damage;
+            HealthController healthController = other.GetComponent<HealthController>();
+    
+            if (healthController == null) return;
+    
+            healthController.TakeDamage(damage, DamageType.Magical);
+
+            // fire the appropriate death event if target died
+            if (!healthController.IsAlive())
             {
-                Debug.Log($"Spell hit: {other.gameObject.name} tag: {other.gameObject.tag}!!");
-                Instantiate(onHitEffectPrefab, transform.position, Quaternion.identity);
-
-                int damage = spellCard ? spellCard.attackPower : _damage;
-                other.GetComponent<HealthController>()?.TakeDamage(damage, DamageType.Magical);
-
-                Destroy(gameObject, destroyDelay);
+                if (other.gameObject.CompareTag("Enemy"))
+                {
+                    other.GetComponent<EnemyController>()?.TriggerDeathAnim();
+                    EnemyEvents.EnemyDeath();
+                }
+                else if (other.gameObject.CompareTag("Player"))
+                {
+                    other.GetComponent<PlayerController>()?.TriggerDeathAnim();
+                    PlayerEvents.PlayerDeath();
+                }
             }
+
+            Destroy(gameObject, destroyDelay);
         }
     }
 }

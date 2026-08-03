@@ -13,7 +13,7 @@ namespace UI
 
         private string[] _helpHints = new[]
         {
-            "Press Escape to enable the pause menu or again to resume",
+            "Press Space on  to enable the pause menu or again to resume",
             "The Deck Builder is the place where you can create your deck",
             "Buy new cards or card backs from the store.",
             "Stun is a very powerful effect that can be applied to enemies, buy the card first.",
@@ -23,17 +23,21 @@ namespace UI
         
         private void Update()
         {
-            if (!Keyboard.current.escapeKey.wasPressedThisFrame) return;
-            if (pauseMenu.activeSelf) ResumeGame();
+            if (!Keyboard.current.spaceKey.wasPressedThisFrame) return;
+            HandlePauseMenu();
+        }
+
+        public void HandlePauseMenu()
+        {
+            if (pauseMenu.activeSelf) pauseMenu.SetActive(false);
             else
             {
                 pauseMenu.SetActive(true);
                 DisplayHelpHin();
-            };
+            }
         }
 
-        private static void ResumeGame() => SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        public void MainMenu() => SceneManager.LoadScene(0);
+        public void MainMenu() => SceneFader.Instance.FadeToScene("MainMenu");
         public void DeckBuilder() => SceneFader.Instance.FadeToScene("DeckBuilder");
         public void GameStore() => SceneFader.Instance.FadeToScene("GameStore");
         // public void NewGame() => SceneManager.LoadScene(2);

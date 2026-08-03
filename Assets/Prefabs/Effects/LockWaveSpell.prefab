@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 253011214087821180}
   - component: {fileID: 136972027470091309}
   - component: {fileID: 6270246265597736373}
-  - component: {fileID: 2312245909147966362}
+  - component: {fileID: 1964022216172030470}
   m_Layer: 6
   m_Name: LockWaveSpell
   m_TagString: Untagged
@@ -134,8 +134,8 @@ MonoBehaviour:
   spellCard: {fileID: 11400000, guid: a2068f43259ed4ee4b2d7ae50e81bc4f, type: 2}
   destroyDelay: 0.1
   delay: 4
---- !u!58 &2312245909147966362
-CircleCollider2D:
+--- !u!70 &1964022216172030470
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -164,9 +164,10 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.58, y: 0}
-  m_Radius: 0.85977274
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 3.5308406, y: 1.1645039}
+  m_Direction: 1

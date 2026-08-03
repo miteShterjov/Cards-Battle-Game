@@ -61,6 +61,8 @@ namespace Entities
             StatusEffectController.OnDeathFromStatusEffect -= HandleDeathFromStatusEffect;
         }
         
+        public void TriggerDeathAnim() => DeathAnimEvent();
+        
         protected void Heal(int amount)
         {
             HealthController.HealDamage(amount);

@@ -5,34 +5,35 @@ namespace SaveSystem
 {
     public static class SaveManager
     {
-        private static readonly string SavePath = Path.Combine(Application.persistentDataPath, "playerSave.json");
+        private const string SaveKey = "DeckOfRunesSave";
 
         public static void Save(PlayerSaveData data)
         {
             string json = JsonUtility.ToJson(data, true);
-            File.WriteAllText(SavePath, json);
-            Debug.Log("Saved to: " + SavePath);
+            PlayerPrefs.SetString(SaveKey, json);
+            PlayerPrefs.Save();
+            Debug.Log("Game saved to PlayerPrefs");
         }
 
         public static PlayerSaveData Load()
         {
-            if (!File.Exists(SavePath))
+            if (!PlayerPrefs.HasKey(SaveKey))
             {
-                Debug.Log("No save file found.");
-                return null; // ← let PlayerDataManager handle default creation
+                Debug.Log("No save found in PlayerPrefs");
+                return null;
             }
 
-            string json = File.ReadAllText(SavePath);
+            string json = PlayerPrefs.GetString(SaveKey);
             return JsonUtility.FromJson<PlayerSaveData>(json);
         }
 
-        public static bool SaveFileExists() => File.Exists(SavePath);
+        public static bool SaveFileExists() => PlayerPrefs.HasKey(SaveKey);
 
         public static void DeleteSave()
         {
-            if (!File.Exists(SavePath)) return;
-            File.Delete(SavePath);
-            Debug.Log("Save file deleted.");
+            PlayerPrefs.DeleteKey(SaveKey);
+            PlayerPrefs.Save();
+            Debug.Log("Save deleted from PlayerPrefs");
         }
     }
 }

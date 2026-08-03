@@ -1,3 +1,4 @@
+using Managers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,7 +13,7 @@ namespace Store
 
         private void Start() => ShowCardsStore(); 
 
-        public void OnGoBackButtonClicked() => SceneManager.LoadScene("MainMenu");
+        public void OnGoBackButtonClicked() => SceneFader.Instance.FadeToScene("MainMenu");
         public void ShowCardsStore() => ShowOnly(cardsStore);
         public void ShowCardBackStore() => ShowOnly(cardBackStore);
         public void ShowPlayerSkinStore() => ShowOnly(playerSkinStore);

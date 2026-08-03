@@ -34,6 +34,7 @@ namespace Managers
             PlayerDataManager.Instance.CurrentData.currentNodeIndex = 0;
             PlayerDataManager.Instance.CurrentData.runActive = true;
             PlayerDataManager.Instance.SaveGame();
+            Debug.Log("StartRun called from: " + System.Environment.StackTrace);
             SceneFader.Instance.FadeToScene(overworldSceneName);
         }
 
@@ -68,6 +69,7 @@ namespace Managers
             PlayerDataManager.Instance.CurrentData.runActive = false;
             PlayerDataManager.Instance.CurrentData.currentNodeIndex = 0;
             PlayerDataManager.Instance.SaveGame();
+            Debug.Log("RunFailed called from: " + System.Environment.StackTrace);
             SceneFader.Instance.FadeToScene(mainMenuSceneName);
         }
 
